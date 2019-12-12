@@ -13,5 +13,7 @@
     <color name="write_half">#88ffffff</color>
     <color name="title_text">#313131</color>
     <color name="text_color_1">#676767</color>
+    <color name="text_color_2">#999999</color>
+    <color name="line_color">#E2E2E2</color>
 
 </resources>
