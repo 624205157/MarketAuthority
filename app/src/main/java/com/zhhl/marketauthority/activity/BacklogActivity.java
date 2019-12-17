@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhhl.marketauthority.R;
+import com.zhhl.marketauthority.activity.backlog.CompanyActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -74,7 +75,8 @@ public class BacklogActivity extends BaseActivity {
     @OnClick({R.id.company, R.id.apply_permission_sort, R.id.check, R.id.operating_rl_1, R.id.operating_rl_2, R.id.equipment_rl_1, R.id.equipment_rl_2, R.id.equipment_rl_3, R.id.personnel_rl_1, R.id.personnel_rl_2, R.id.application_rl_1})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.company:
+            case R.id.company://申请单位基本信息
+                startActivity(new Intent(BacklogActivity.this, CompanyActivity.class));
                 break;
             case R.id.apply_permission_sort:
                 break;
