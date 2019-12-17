@@ -30,6 +30,7 @@
         <activity android:name=".activity.BacklogActivity"/>
         <activity android:name=".activity.CertificationActivity"/>
         <activity android:name=".CameraActivity"/>
+        <activity android:name=".activity.backlog.CompanyActivity"/>
     </application>
 
 </manifest>
