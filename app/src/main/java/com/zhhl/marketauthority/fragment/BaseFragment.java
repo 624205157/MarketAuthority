@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.zhhl.marketauthority.R;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -28,7 +30,7 @@ public abstract class BaseFragment extends SupportFragment {
     protected final String TAG = "BaseFragment";
     private View view;
     protected String firmID = "";
-
+    Unbinder unbinder;
     protected Context mContext;//上下文
     protected Activity mActivity;//界面
 
@@ -53,7 +55,7 @@ public abstract class BaseFragment extends SupportFragment {
         title = view.findViewById(R.id.title);
         /**初始化的时候去加载数据**/
         isCanLoadData();
-
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -94,6 +96,7 @@ public abstract class BaseFragment extends SupportFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        unbinder.unbind();
         isInit = false;
         isLoad = false;
     }
@@ -190,5 +193,7 @@ public abstract class BaseFragment extends SupportFragment {
         BaseFragment fragment = (BaseFragment) getTopChildFragment();
         fragment.onActivityResult(requestCode, resultCode, data);
     }
+
+
 
 }
