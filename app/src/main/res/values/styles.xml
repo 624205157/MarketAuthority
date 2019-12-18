@@ -34,5 +34,9 @@
         <item name="android:drawablePadding">5dp</item>
     </style>
 
-
+    <!--底部弹框动画-->
+    <style name="bottomDialog">
+        <item name="android:windowEnterAnimation">@anim/dialog_fr_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_fr_out</item>
+    </style>
 </resources>

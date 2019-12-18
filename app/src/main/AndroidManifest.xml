@@ -31,6 +31,7 @@
         <activity android:name=".activity.CertificationActivity"/>
         <activity android:name=".CameraActivity"/>
         <activity android:name=".activity.backlog.CompanyActivity"/>
+        <activity android:name=".activity.backlog.ApplyUnitResouse"/>
     </application>
 
 </manifest>
