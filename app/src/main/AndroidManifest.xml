@@ -26,7 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".TestActivity"/>
         <activity android:name=".activity.BacklogActivity"/>
         <activity android:name=".activity.CertificationActivity"/>
         <activity android:name=".CameraActivity"/>

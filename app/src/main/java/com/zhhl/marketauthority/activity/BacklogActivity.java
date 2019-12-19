@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhhl.marketauthority.R;
+import com.zhhl.marketauthority.TestActivity;
 import com.zhhl.marketauthority.activity.backlog.ApplyUnitResouse;
 import com.zhhl.marketauthority.activity.backlog.CompanyActivity;
 import com.zhhl.marketauthority.view.dialog.BottomDialogFr;
@@ -103,6 +104,7 @@ public class BacklogActivity extends BaseActivity {
                 break;
             case R.id.application_rl_1://申请单位资源
                 startActivity(new Intent(BacklogActivity.this, ApplyUnitResouse.class));
+//                startActivity(new Intent(BacklogActivity.this, TestActivity.class));
                 break;
         }
     }

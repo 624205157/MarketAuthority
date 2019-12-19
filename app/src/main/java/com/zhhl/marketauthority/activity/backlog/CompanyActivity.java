@@ -10,7 +10,7 @@ import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BaseActivity;
 
 import butterknife.BindView;
-
+//申请单位基本信息
 public class CompanyActivity extends BaseActivity {
     @BindView(R.id.submit)
     TextView submit;
