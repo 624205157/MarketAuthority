@@ -32,6 +32,11 @@
         <activity android:name=".CameraActivity"/>
         <activity android:name=".activity.backlog.CompanyActivity"/>
         <activity android:name=".activity.backlog.ApplyUnitResouse"/>
+        <activity android:name=".activity.backlog.ManageStaff"/>
+        <activity android:name=".activity.backlog.DepartmentsActivity"/>
+        <activity android:name=".activity.backlog.InspectDeviceActivity"/>
+        <activity android:name=".activity.backlog.ProduceActivity"/>
+        <activity android:name=".activity.backlog.SubcontractActivity"/>
     </application>
 
 </manifest>
