@@ -9,7 +9,11 @@ import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.TestActivity;
 import com.zhhl.marketauthority.activity.backlog.ApplyUnitResouse;
 import com.zhhl.marketauthority.activity.backlog.CompanyActivity;
+import com.zhhl.marketauthority.activity.backlog.DepartmentsActivity;
+import com.zhhl.marketauthority.activity.backlog.InspectDeviceActivity;
 import com.zhhl.marketauthority.activity.backlog.ManageStaff;
+import com.zhhl.marketauthority.activity.backlog.ProduceActivity;
+import com.zhhl.marketauthority.activity.backlog.SubcontractActivity;
 import com.zhhl.marketauthority.view.dialog.BottomDialogFr;
 
 import butterknife.BindView;
@@ -90,19 +94,23 @@ public class BacklogActivity extends BaseActivity {
                 startActivity(new Intent(BacklogActivity.this,CertificationActivity.class));//相关认证
                 break;
             case R.id.operating_rl_1://试生产(制造)情况
+                startActivity(new Intent(BacklogActivity.this, ProduceActivity.class));
                 break;
             case R.id.operating_rl_2://分包、外协情况
+                startActivity(new Intent(BacklogActivity.this, SubcontractActivity.class));
                 break;
             case R.id.equipment_rl_1://自行校验一起设备能力
                 break;
             case R.id.equipment_rl_2://主要生产设备状况
                 break;
             case R.id.equipment_rl_3://主要检验与试验仪器设备状况
+                startActivity(new Intent(BacklogActivity.this, InspectDeviceActivity.class));
                 break;
             case R.id.personnel_rl_1://管理、专业、作业人员情况
                 startActivity(new Intent(BacklogActivity.this, ManageStaff.class));
                 break;
             case R.id.personnel_rl_2://各部门人员组成
+                startActivity(new Intent(BacklogActivity.this, DepartmentsActivity.class));
                 break;
             case R.id.application_rl_1://申请单位资源
                 startActivity(new Intent(BacklogActivity.this, ApplyUnitResouse.class));
