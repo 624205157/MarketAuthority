@@ -100,6 +100,7 @@ public class BacklogActivity extends BaseActivity {
                 startActivity(new Intent(BacklogActivity.this, SubcontractActivity.class));
                 break;
             case R.id.equipment_rl_1://自行校验一起设备能力
+                startActivity(new Intent(BacklogActivity.this, TestActivity.class));
                 break;
             case R.id.equipment_rl_2://主要生产设备状况
                 break;
@@ -114,7 +115,6 @@ public class BacklogActivity extends BaseActivity {
                 break;
             case R.id.application_rl_1://申请单位资源
                 startActivity(new Intent(BacklogActivity.this, ApplyUnitResouse.class));
-//                startActivity(new Intent(BacklogActivity.this, TestActivity.class));
                 break;
         }
     }

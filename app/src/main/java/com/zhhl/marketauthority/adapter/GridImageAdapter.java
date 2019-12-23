@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zhhl.marketauthority.R;
 
 import java.io.File;
@@ -107,26 +109,22 @@ public class GridImageAdapter extends
         if (getItemViewType(position) == TYPE_CAMERA) {
             viewHolder.mImg.setImageResource(R.drawable.ic_add_image);
             viewHolder.mImg.setOnClickListener(v -> mOnAddPicClickListener.onAddPicClick());
-            viewHolder.mIvDel.setVisibility(View.INVISIBLE);
+//            viewHolder.mIvDel.setVisibility(View.INVISIBLE);
         } else {
-            viewHolder.mIvDel.setVisibility(View.VISIBLE);
-            viewHolder.mIvDel.setOnClickListener(view -> {
-                int index = viewHolder.getAdapterPosition();
-                // 这里有时会返回-1造成数据下标越界,具体可参考getAdapterPosition()源码，
-                // 通过源码分析应该是bindViewHolder()暂未绘制完成导致，知道原因的也可联系我~感谢
-                if (index != RecyclerView.NO_POSITION && list.size() > index) {
-                    list.remove(index);
-                    notifyItemRemoved(index);
-                    notifyItemRangeChanged(index, list.size());
-                }
-            });
-//            Glide.with(viewHolder.itemView.getContext())
-//                    .load(isAndroidQ && !media.isCut() && !media.isCompressed() ? Uri.parse(path)
-//                            : path)
-//                    .centerCrop()
-//                    .placeholder(R.color.app_color_f6)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .into(viewHolder.mImg);
+//            viewHolder.mIvDel.setVisibility(View.VISIBLE);
+//            viewHolder.mIvDel.setOnClickListener(view -> {
+//                int index = viewHolder.getAdapterPosition();
+//                // 这里有时会返回-1造成数据下标越界,具体可参考getAdapterPosition()源码，
+//                // 通过源码分析应该是bindViewHolder()暂未绘制完成导致，知道原因的也可联系我~感谢
+//                if (index != RecyclerView.NO_POSITION && list.size() > index) {
+//                    list.remove(index);
+//                    notifyItemRemoved(index);
+//                    notifyItemRangeChanged(index, list.size());
+//                }
+//            });
+            Glide.with(viewHolder.itemView.getContext())
+                    .load(list.get(position))
+                    .into(viewHolder.mImg);
             //itemView 的点击事件
             if (mItemClickListener != null) {
                 viewHolder.itemView.setOnClickListener(v -> {

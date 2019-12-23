@@ -84,7 +84,8 @@ public class ManageStaff extends BaseActivity {
         et_work_years.setEnabled(bool);
         et_profession_card.setEnabled(bool);
         et_remark.setEnabled(bool);
-
+        et_updatetime.setEnabled(bool);
+        et_idea.setEnabled(bool);
         et_homework.setBackground(ContextCompat.getDrawable(ManageStaff.this,R.drawable.background_arc_3));
         et_username.setBackground(ContextCompat.getDrawable(ManageStaff.this,R.drawable.background_arc_3));
         et_age.setBackground(ContextCompat.getDrawable(ManageStaff.this,R.drawable.background_arc_3));
@@ -94,6 +95,8 @@ public class ManageStaff extends BaseActivity {
         et_work_years.setBackground(ContextCompat.getDrawable(ManageStaff.this,R.drawable.background_arc_3));
         et_profession_card.setBackground(ContextCompat.getDrawable(ManageStaff.this,R.drawable.background_arc_3));
         et_remark.setBackground(ContextCompat.getDrawable(ManageStaff.this,R.drawable.background_arc_3));
+        et_updatetime.setBackground(ContextCompat.getDrawable(ManageStaff.this,R.drawable.background_arc_3));
+        et_idea.setBackground(ContextCompat.getDrawable(ManageStaff.this,R.drawable.background_arc_3));
         if (bool){
             markBool = false;
         }else {
