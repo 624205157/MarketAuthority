@@ -1,14 +1,26 @@
 package com.zhhl.marketauthority.activity.backlog;
 
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BaseActivity;
+import com.zhhl.marketauthority.adapter.GridImageAdapter;
+import com.zhhl.marketauthority.util.ScreenUtils;
+import com.zhhl.marketauthority.view.FullyGridLayoutManager;
+import com.zhhl.marketauthority.view.GridSpacingItemNotBothDecoration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -42,9 +54,15 @@ public class ManageStaff extends BaseActivity {
     RadioButton regular;//合格
     @BindView(R.id.unregular)
     RadioButton unregular;//不合格
+    @BindView(R.id.recycler)
+    RecyclerView recycler;
     private ImageView back;
     private ImageView change;
     private Boolean markBool = true;
+    FullyGridLayoutManager manager;
+    GridImageAdapter adapter;
+    List<String> selectList = new ArrayList<String>();
+    private static final int REQUESTCODE = 100;
     @Override
     protected int setContentView() {
         return R.layout.activity_managestaff;
@@ -71,8 +89,28 @@ public class ManageStaff extends BaseActivity {
     }
 
     private void init() {
-
+        manager = new FullyGridLayoutManager(this,
+                1, GridLayoutManager.VERTICAL, false);
+        recycler.setLayoutManager(manager);
+        recycler.addItemDecoration(new GridSpacingItemNotBothDecoration(5,
+                ScreenUtils.dip2px(ManageStaff.this, 4), true, false));
+        adapter = new GridImageAdapter(ManageStaff.this, onAddPicClickListener);
+        adapter.setList(selectList);//设置数据
+        recycler.setAdapter(adapter);
     }
+
+    private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {
+
+        @Override
+        public void onAddPicClick() {
+
+            manager = new FullyGridLayoutManager(ManageStaff.this,
+                    selectList.size()+1, GridLayoutManager.VERTICAL, false);
+            recycler.setLayoutManager(manager);
+            getPermissions(REQUESTCODE);
+
+        }
+    };
 
     private void changeSate(Boolean bool) {
         et_homework.setEnabled(bool);
@@ -101,6 +139,32 @@ public class ManageStaff extends BaseActivity {
             markBool = false;
         }else {
             markBool = true;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 101) {
+            Log.i("CJT", "picture");
+            String path = data.getStringExtra("path");
+//            photo.setImageBitmap(BitmapFactory.decodeFile(path));
+            selectList.add(path);
+            if (selectList.size()<5){
+                manager = new FullyGridLayoutManager(this,
+                        selectList.size()+1, GridLayoutManager.VERTICAL, false);
+                recycler.setLayoutManager(manager);
+//                recycler.addItemDecoration(new GridSpacingItemNotBothDecoration(selectList.size(),
+//                                ScreenUtils.dip2px(ApplyUnitResouse.this, 4), true, false));
+            }
+            adapter.notifyDataSetChanged();
+        }
+        if (resultCode == 102) {
+            Log.i("CJT", "video");
+            String path = data.getStringExtra("path");
+        }
+        if (resultCode == 103) {
+            Toast.makeText(this, "请检查相机权限~", Toast.LENGTH_SHORT).show();
         }
     }
 }

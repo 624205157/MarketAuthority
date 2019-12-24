@@ -97,6 +97,7 @@
                         android:text="张三"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_count1"
                         android:padding="8dp"
                         android:textColor="@color/title_text"
                         android:layout_width="0dp"
@@ -119,6 +120,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_name2"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -127,6 +129,7 @@
                         android:textColor="@color/title_text"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_count2"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -149,6 +152,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_name3"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -157,6 +161,7 @@
                         android:text="张三"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_count3"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -179,6 +184,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_name4"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -187,6 +193,7 @@
                         android:text="张三"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_count4"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -209,6 +216,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_name5"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -217,6 +225,7 @@
                         android:textColor="@color/title_text"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_count5"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -239,6 +248,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_name6"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -247,6 +257,7 @@
                         android:textColor="@color/title_text"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_count6"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -269,6 +280,7 @@
                         android:textColor="@color/title_text"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_name7"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -277,6 +289,7 @@
                         android:textColor="@color/title_text"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_count7"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -299,6 +312,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_name8"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -307,11 +321,13 @@
                         android:textColor="@color/title_text"
                         android:gravity="center"/>
                     <TextView
+                        android:id="@+id/tv_count8"
                         android:padding="8dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:text="8人"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/title_text"
                         android:gravity="center"/>
                 </TableRow>
             </TableLayout>
@@ -342,19 +358,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:id="@+id/recycler"-->
-            <!--app:layout_constraintTop_toTopOf="@id/tv_takephoto"-->
-            <!--app:layout_constraintBottom_toBottomOf="@id/tv_takephoto"-->
-            <!--android:overScrollMode="never"-->
-            <!--app:layout_constraintRight_toRightOf="parent"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@color/colorPrimary"-->
-            <!--&gt;-->
-
-        <!--</android.support.v7.widget.RecyclerView>-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            app:layout_constraintTop_toTopOf="@id/tv_takephoto"
+            app:layout_constraintBottom_toBottomOf="@id/tv_takephoto"
+            android:overScrollMode="never"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+        </android.support.v7.widget.RecyclerView>
         <GridView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

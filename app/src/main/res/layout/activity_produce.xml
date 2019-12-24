@@ -166,19 +166,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:id="@+id/recycler"-->
-            <!--app:layout_constraintTop_toTopOf="@id/tv_takephoto"-->
-            <!--app:layout_constraintBottom_toBottomOf="@id/tv_takephoto"-->
-            <!--android:overScrollMode="never"-->
-            <!--app:layout_constraintRight_toRightOf="parent"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@color/colorPrimary"-->
-            <!--&gt;-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            app:layout_constraintTop_toTopOf="@id/tv_takephoto"
+            app:layout_constraintBottom_toBottomOf="@id/tv_takephoto"
+            android:overScrollMode="never"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
 
-        <!--</android.support.v7.widget.RecyclerView>-->
+        </android.support.v7.widget.RecyclerView>
         <GridView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

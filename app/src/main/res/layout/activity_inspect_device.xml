@@ -47,7 +47,7 @@
             app:layout_constraintTop_toTopOf="@id/tv_name_device"
             android:layout_marginRight="6dp"
             android:layout_marginTop="6dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/background_circle"
             android:layout_width="10dp"
             android:layout_height="10dp" />
         <EditText
@@ -176,13 +176,17 @@
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="@id/line1"
             app:layout_constraintTop_toBottomOf="@id/line1" />
-        <ImageView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
             app:layout_constraintTop_toTopOf="@id/tv_takephoto"
             app:layout_constraintBottom_toBottomOf="@id/tv_takephoto"
+            android:overScrollMode="never"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@color/colorAccent"
-            android:layout_width="35dp"
-            android:layout_height="40dp" />
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+        </android.support.v7.widget.RecyclerView>
     </android.support.constraint.ConstraintLayout>
 
 
@@ -213,7 +217,7 @@
             app:layout_constraintTop_toTopOf="@id/tv_name_device2"
             android:layout_marginRight="6dp"
             android:layout_marginTop="6dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/background_circle"
             android:layout_width="10dp"
             android:layout_height="10dp" />
         <EditText
@@ -342,13 +346,17 @@
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="@id/line2"
             app:layout_constraintTop_toBottomOf="@id/line2" />
-        <ImageView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler2"
             app:layout_constraintTop_toTopOf="@id/tv_takephoto2"
             app:layout_constraintBottom_toBottomOf="@id/tv_takephoto2"
+            android:overScrollMode="never"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@color/colorAccent"
-            android:layout_width="35dp"
-            android:layout_height="40dp" />
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+        </android.support.v7.widget.RecyclerView>
 
         <TextView
             android:id="@+id/tv_idea_title"
@@ -407,7 +415,7 @@
             app:layout_constraintTop_toTopOf="@id/tv_name_device3"
             android:layout_marginRight="6dp"
             android:layout_marginTop="6dp"
-            android:background="@color/colorAccent"
+            android:background="@drawable/background_circle"
             android:layout_width="10dp"
             android:layout_height="10dp" />
         <EditText
@@ -536,14 +544,17 @@
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="@id/line3"
             app:layout_constraintTop_toBottomOf="@id/line3" />
-        <ImageView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler3"
             app:layout_constraintTop_toTopOf="@id/tv_takephoto3"
             app:layout_constraintBottom_toBottomOf="@id/tv_takephoto3"
+            android:overScrollMode="never"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@color/colorAccent"
-            android:layout_width="35dp"
-            android:layout_height="40dp" />
-            />
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+        </android.support.v7.widget.RecyclerView>
 
         <!--<TextView-->
             <!--android:id="@+id/tv_idea_title"-->

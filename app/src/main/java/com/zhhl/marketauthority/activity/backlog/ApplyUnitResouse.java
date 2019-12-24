@@ -32,7 +32,6 @@ public class ApplyUnitResouse extends BaseActivity {
 
     private ImageView back;
     private ImageView change;
-    GridImageAdapter adapter;
     @BindView(R.id.recycler)
     RecyclerView recycler;
     @BindView(R.id.et_area_all)
@@ -67,6 +66,9 @@ public class ApplyUnitResouse extends BaseActivity {
     RadioButton unregular;
     private boolean markBool;
     List<String> selectList = new ArrayList<String>();
+    FullyGridLayoutManager manager;
+    GridImageAdapter adapter;
+    private static final int REQUESTCODE = 100;
     @Override
     protected int setContentView() {
         return R.layout.activity_applyunit_res;
@@ -94,11 +96,11 @@ public class ApplyUnitResouse extends BaseActivity {
     }
 
     private void init() {
-        FullyGridLayoutManager manager = new FullyGridLayoutManager(this,
-                4, GridLayoutManager.VERTICAL, false);
+        manager = new FullyGridLayoutManager(this,
+                1, GridLayoutManager.VERTICAL, false);
         recycler.setLayoutManager(manager);
-        recycler.addItemDecoration(new GridSpacingItemNotBothDecoration(4,
-                ScreenUtils.dip2px(ApplyUnitResouse.this, 8), true, false));
+        recycler.addItemDecoration(new GridSpacingItemNotBothDecoration(5,
+                ScreenUtils.dip2px(ApplyUnitResouse.this, 4), true, false));
         adapter = new GridImageAdapter(ApplyUnitResouse.this, onAddPicClickListener);
         adapter.setList(selectList);//设置数据
         recycler.setAdapter(adapter);
@@ -107,7 +109,12 @@ public class ApplyUnitResouse extends BaseActivity {
 
         @Override
         public void onAddPicClick() {
-            getPermissions();
+
+            manager = new FullyGridLayoutManager(ApplyUnitResouse.this,
+                    selectList.size()+1, GridLayoutManager.VERTICAL, false);
+            recycler.setLayoutManager(manager);
+            getPermissions(REQUESTCODE);
+
         }
     };
     private void setData() {
@@ -122,6 +129,13 @@ public class ApplyUnitResouse extends BaseActivity {
             String path = data.getStringExtra("path");
 //            photo.setImageBitmap(BitmapFactory.decodeFile(path));
             selectList.add(path);
+            if (selectList.size()<5){
+                manager = new FullyGridLayoutManager(this,
+                        selectList.size()+1, GridLayoutManager.VERTICAL, false);
+                recycler.setLayoutManager(manager);
+//                recycler.addItemDecoration(new GridSpacingItemNotBothDecoration(selectList.size(),
+//                                ScreenUtils.dip2px(ApplyUnitResouse.this, 4), true, false));
+            }
             adapter.notifyDataSetChanged();
         }
         if (resultCode == 102) {

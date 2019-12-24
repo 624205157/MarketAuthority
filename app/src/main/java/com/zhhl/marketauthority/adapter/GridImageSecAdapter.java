@@ -1,27 +1,21 @@
 package com.zhhl.marketauthority.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zhhl.marketauthority.R;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridImageAdapter extends
-        RecyclerView.Adapter<GridImageAdapter.ViewHolder> {
+public class GridImageSecAdapter extends
+        RecyclerView.Adapter<GridImageSecAdapter.ViewHolder> {
     public static final String TAG = "GridImageAdapter";
     public static final int TYPE_CAMERA = 1;
     public static final int TYPE_PICTURE = 2;
@@ -38,7 +32,7 @@ public class GridImageAdapter extends
         void onAddPicClick();
     }
 
-    public GridImageAdapter(Context context, onAddPicClickListener mOnAddPicClickListener) {
+    public GridImageSecAdapter(Context context, onAddPicClickListener mOnAddPicClickListener) {
         this.mInflater = LayoutInflater.from(context);
         this.mOnAddPicClickListener = mOnAddPicClickListener;
 //        this.isAndroidQ = SdkVersionUtils.checkedAndroid_Q();
@@ -89,7 +83,7 @@ public class GridImageAdapter extends
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.girdview_image,
+        View view = mInflater.inflate(R.layout.girdview_image2,
                 viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;

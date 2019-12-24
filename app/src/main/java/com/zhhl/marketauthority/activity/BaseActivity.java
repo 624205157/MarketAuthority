@@ -167,7 +167,7 @@ public abstract class BaseActivity extends SupportActivity {
     /**
      * 获取权限
      */
-    public void getPermissions() {
+    public void getPermissions(int requestCode) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager
                     .PERMISSION_GRANTED &&
@@ -175,7 +175,7 @@ public abstract class BaseActivity extends SupportActivity {
                             .PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager
                             .PERMISSION_GRANTED) {
-                startActivityForResult(new Intent(BaseActivity.this, CameraActivity.class), 100);
+                startActivityForResult(new Intent(BaseActivity.this, CameraActivity.class), requestCode);
             } else {
                 //不具有获取权限，需要进行权限申请
                 ActivityCompat.requestPermissions(BaseActivity.this, new String[]{
@@ -184,7 +184,7 @@ public abstract class BaseActivity extends SupportActivity {
                         Manifest.permission.CAMERA}, GET_PERMISSION_REQUEST);
             }
         } else {
-            startActivityForResult(new Intent(BaseActivity.this, CameraActivity.class), 100);
+            startActivityForResult(new Intent(BaseActivity.this, CameraActivity.class), requestCode);
         }
     }
 
