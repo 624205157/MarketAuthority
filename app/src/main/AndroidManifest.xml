@@ -30,7 +30,7 @@
         <activity android:name=".activity.BacklogActivity"/>
         <activity android:name=".activity.CertificationActivity"/>
         <activity android:name=".CameraActivity"/>
-        <activity android:name=".activity.backlog.CompanyActivity"/>
+        <activity android:name=".activity.backlog.ApplyCompanyActivity"/>
         <activity android:name=".activity.backlog.ApplyUnitResouse"/>
         <activity android:name=".activity.backlog.ManageStaff"/>
         <activity android:name=".activity.backlog.DepartmentsActivity"/>
@@ -39,6 +39,7 @@
         <activity android:name=".activity.backlog.SubcontractActivity"/>
         <activity android:name=".activity.backlog.PramaryDeviceActivity"/>
         <activity android:name=".activity.backlog.SelfCheckDeviceActivity"/>
+        <activity android:name=".activity.backlog.ApplyCategoryActivity"/>
     </application>
 
 </manifest>

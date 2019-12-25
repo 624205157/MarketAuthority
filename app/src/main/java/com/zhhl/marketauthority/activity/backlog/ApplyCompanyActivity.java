@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 //申请单位基本信息
-public class CompanyActivity extends BaseActivity {
+public class ApplyCompanyActivity extends BaseActivity {
     @BindView(R.id.submit)
     TextView submit;
     @BindView(R.id.et_unit)
@@ -56,7 +56,7 @@ public class CompanyActivity extends BaseActivity {
     private ImageView change;
     @Override
     protected int setContentView() {
-        return R.layout.activity_company;
+        return R.layout.activity_applycompany;
     }
 
     @Override
@@ -79,7 +79,7 @@ public class CompanyActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.et_createtime:
                 //时间选择器
-                TimePickerView pvTime = new TimePickerBuilder(CompanyActivity.this, new OnTimeSelectListener() {
+                TimePickerView pvTime = new TimePickerBuilder(ApplyCompanyActivity.this, new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
                         String time = UntilsTime.getTime(date);
@@ -114,21 +114,21 @@ public class CompanyActivity extends BaseActivity {
         et_proxy_cardNum.setEnabled(true);
         et_proxy_name.setEnabled(true);
         et_proxy_phone.setEnabled(true);
-        et_unit.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_legal.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_createtime.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_assets.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_funds.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_address.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_industry.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_code.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_ratify.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_type.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_phone.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_cardNum.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_proxy_cardNum.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_proxy_name.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
-        et_proxy_phone.setBackground(ContextCompat.getDrawable(CompanyActivity.this,R.drawable.background_arc_3));
+        et_unit.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_legal.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_createtime.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_assets.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_funds.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_address.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_industry.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_code.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_ratify.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_type.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_phone.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_cardNum.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_proxy_cardNum.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_proxy_name.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_proxy_phone.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
     }
 
     private void setData() {
