@@ -13,19 +13,26 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BaseActivity;
 import com.zhhl.marketauthority.adapter.GridImageAdapter;
 import com.zhhl.marketauthority.util.ScreenUtils;
+import com.zhhl.marketauthority.util.UntilsTime;
 import com.zhhl.marketauthority.view.FullyGridLayoutManager;
 import com.zhhl.marketauthority.view.GridSpacingItemNotBothDecoration;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 //申请单位资源
 public class ApplyUnitResouse extends BaseActivity {
@@ -55,7 +62,7 @@ public class ApplyUnitResouse extends BaseActivity {
     @BindView(R.id.et_output)
     EditText et_output;//年产值
     @BindView(R.id.et_updatetime)
-    EditText et_updatetime;//评审时间
+    TextView et_updatetime;//评审时间
     @BindView(R.id.et_idea)
     EditText et_idea;//评审意见
     @BindView(R.id.radio_result)
@@ -94,7 +101,23 @@ public class ApplyUnitResouse extends BaseActivity {
         init();
         setData();
     }
+    @OnClick({R.id.et_updatetime})
+    public void onViewClick(View view){
+        switch (view.getId()){
+            case R.id.et_updatetime:
+                //时间选择器
+                TimePickerView pvTime = new TimePickerBuilder(ApplyUnitResouse.this, new OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {
+                        String time = UntilsTime.getTime(date);
+                        et_updatetime.setText(time);
 
+                    }
+                }).setType(new boolean[]{true, true, true, true, true, true}).build();
+                pvTime.show();
+                break;
+        }
+    }
     private void init() {
         manager = new FullyGridLayoutManager(this,
                 1, GridLayoutManager.VERTICAL, false);
@@ -160,10 +183,11 @@ public class ApplyUnitResouse extends BaseActivity {
         et_output.setEnabled(bool);
         et_updatetime.setEnabled(bool);
         et_idea.setEnabled(bool);
-        radio_result.setEnabled(bool);
+//        radio_result.setEnabled(bool);
+        regular.setEnabled(bool);
+        unregular.setEnabled(bool);
         //设置评审结果的显示
         if (bool) {
-            unregular.setVisibility(View.VISIBLE);
             et_area_all.setBackground(ContextCompat.getDrawable(ApplyUnitResouse.this, R.drawable.background_arc_3));
             et_area_exposure.setBackground(ContextCompat.getDrawable(ApplyUnitResouse.this, R.drawable.background_arc_3));
             et_code.setBackground(ContextCompat.getDrawable(ApplyUnitResouse.this, R.drawable.background_arc_3));
@@ -180,7 +204,6 @@ public class ApplyUnitResouse extends BaseActivity {
                 et_idea.setHint("请您填写评审意见");
             }
         } else {//修改完，保存后的效果设置
-            unregular.setVisibility(View.INVISIBLE);
             et_area_all.setBackground(null);
             et_area_exposure.setBackground(null);
             et_code.setBackground(null);
@@ -191,12 +214,12 @@ public class ApplyUnitResouse extends BaseActivity {
             et_legal.setBackground(null);
             et_count_other.setBackground(null);
             et_output.setBackground(null);
-            et_updatetime.setBackground(null);
-            et_idea.setBackground(null);
             if (TextUtils.isEmpty(et_idea.getText().toString())){
                 et_idea.setHint("");
                 et_idea.setText("");
             }
         }
     }
+
+
 }

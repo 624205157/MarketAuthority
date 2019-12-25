@@ -12,7 +12,9 @@ import com.zhhl.marketauthority.activity.backlog.CompanyActivity;
 import com.zhhl.marketauthority.activity.backlog.DepartmentsActivity;
 import com.zhhl.marketauthority.activity.backlog.InspectDeviceActivity;
 import com.zhhl.marketauthority.activity.backlog.ManageStaff;
+import com.zhhl.marketauthority.activity.backlog.PramaryDeviceActivity;
 import com.zhhl.marketauthority.activity.backlog.ProduceActivity;
+import com.zhhl.marketauthority.activity.backlog.SelfCheckDeviceActivity;
 import com.zhhl.marketauthority.activity.backlog.SubcontractActivity;
 import com.zhhl.marketauthority.view.dialog.BottomDialogFr;
 
@@ -100,9 +102,10 @@ public class BacklogActivity extends BaseActivity {
                 startActivity(new Intent(BacklogActivity.this, SubcontractActivity.class));
                 break;
             case R.id.equipment_rl_1://自行校验一起设备能力
-                startActivity(new Intent(BacklogActivity.this, TestActivity.class));
+                startActivity(new Intent(BacklogActivity.this, SelfCheckDeviceActivity.class));
                 break;
             case R.id.equipment_rl_2://主要生产设备状况
+                startActivity(new Intent(BacklogActivity.this, PramaryDeviceActivity.class));
                 break;
             case R.id.equipment_rl_3://主要检验与试验仪器设备状况
                 startActivity(new Intent(BacklogActivity.this, InspectDeviceActivity.class));

@@ -106,7 +106,7 @@
             app:layout_constraintLeft_toLeftOf="@id/tv_state_title"
             app:layout_constraintRight_toRightOf="@id/tv_state_title"
             app:layout_constraintTop_toBottomOf="@id/tv_state_title" />
-        <EditText
+        <TextView
             android:id="@+id/et_updatetime"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

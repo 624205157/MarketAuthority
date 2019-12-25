@@ -53,6 +53,7 @@
                     />
                 <EditText
                     android:id="@+id/et_area_all"
+                    android:enabled="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="70dp"
@@ -81,6 +82,7 @@
                     />
                 <EditText
                     android:id="@+id/et_area_exposure"
+                    android:enabled="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -109,6 +111,7 @@
                     android:id="@+id/et_code"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:background="@null"
                     app:layout_constraintRight_toRightOf="@id/et_area_all"
                     app:layout_constraintLeft_toLeftOf="@id/et_area_all"
@@ -135,6 +138,7 @@
                     android:id="@+id/et_count"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:background="@null"
                     app:layout_constraintRight_toRightOf="@id/et_code"
                     app:layout_constraintLeft_toLeftOf="@id/et_code"
@@ -159,6 +163,7 @@
                     />
                 <EditText
                     android:id="@+id/et_ability"
+                    android:enabled="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -198,6 +203,7 @@
                 <EditText
                     android:id="@+id/et_area_workshop"
                     android:layout_width="0dp"
+                    android:enabled="false"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="70dp"
                     android:layout_marginRight="30dp"
@@ -225,6 +231,7 @@
                     />
                 <EditText
                     android:id="@+id/et_count_design"
+                    android:enabled="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -251,6 +258,7 @@
                     />
                 <EditText
                     android:id="@+id/et_legal"
+                    android:enabled="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -277,6 +285,7 @@
                     />
                 <EditText
                     android:id="@+id/et_count_other"
+                    android:enabled="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -303,6 +312,7 @@
                     />
                 <EditText
                     android:id="@+id/et_output"
+                    android:enabled="false"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -378,9 +388,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
-        <EditText
+        <TextView
             android:id="@+id/et_updatetime"
-            android:background="@null"
+            android:enabled="false"
+            android:background="@drawable/background_arc_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -415,7 +426,7 @@
             android:layout_marginLeft="30dp"
             android:minHeight="130dp"
             android:maxHeight="130dp"
-            android:background="@null"
+            android:background="@drawable/background_arc_3"
             app:layout_constraintRight_toRightOf="@id/et_updatetime"
             app:layout_constraintLeft_toRightOf="@id/tv_idea_title"
             app:layout_constraintTop_toTopOf="@id/tv_idea_title"
@@ -461,6 +472,8 @@
             >
             <RadioButton
                 android:id="@+id/regular"
+                android:enabled="false"
+                android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -474,6 +487,7 @@
 
             <RadioButton
                 android:id="@+id/unregular"
+                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -484,7 +498,6 @@
                 android:textColor="@color/title_text"
                 android:text="不合格"
                 android:textSize="16sp"
-                android:visibility="gone"
                 />
         </RadioGroup>
     </android.support.constraint.ConstraintLayout>

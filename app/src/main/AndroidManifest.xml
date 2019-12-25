@@ -37,6 +37,8 @@
         <activity android:name=".activity.backlog.InspectDeviceActivity"/>
         <activity android:name=".activity.backlog.ProduceActivity"/>
         <activity android:name=".activity.backlog.SubcontractActivity"/>
+        <activity android:name=".activity.backlog.PramaryDeviceActivity"/>
+        <activity android:name=".activity.backlog.SelfCheckDeviceActivity"/>
     </application>
 
 </manifest>

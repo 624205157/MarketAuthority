@@ -8,20 +8,27 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BaseActivity;
 import com.zhhl.marketauthority.adapter.GridImageAdapter;
 import com.zhhl.marketauthority.util.ScreenUtils;
+import com.zhhl.marketauthority.util.UntilsTime;
 import com.zhhl.marketauthority.view.FullyGridLayoutManager;
 import com.zhhl.marketauthority.view.GridSpacingItemNotBothDecoration;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 //各部门人员组成
 public class DepartmentsActivity extends BaseActivity {
@@ -58,11 +65,15 @@ public class DepartmentsActivity extends BaseActivity {
     @BindView(R.id.tv_count8)
     TextView tv_count8;//财政部人数
     @BindView(R.id.et_updatetime)
-    EditText et_updatetime;//评审时间
+    TextView et_updatetime;//评审时间
     @BindView(R.id.et_idea)
     EditText et_idea;//评审意见
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.regular)
+    RadioButton regular;
+    @BindView(R.id.unregular)
+    RadioButton unregular;
     private ImageView back;
     private ImageView change;
     private Boolean markBool = true;
@@ -93,10 +104,29 @@ public class DepartmentsActivity extends BaseActivity {
         setData();
     }
 
+    @OnClick({R.id.et_updatetime})
+    public void onClickView(View view){
+            switch (view.getId()){
+                case R.id.et_updatetime:
+                    //时间选择器
+                    TimePickerView pvTime = new TimePickerBuilder(DepartmentsActivity.this, new OnTimeSelectListener() {
+                        @Override
+                        public void onTimeSelect(Date date, View v) {
+                            String time = UntilsTime.getTime(date);
+                            et_updatetime.setText(time);
+
+                        }
+                    }).setType(new boolean[]{true, true, true, true, true, true}).build();
+                    pvTime.show();
+                    break;
+            }
+    }
     private void changeSate(Boolean bool) {
         et_updatetime.setEnabled(bool);
-        et_updatetime.setBackground(ContextCompat.getDrawable(DepartmentsActivity.this,R.drawable.background_arc_3));
         et_idea.setEnabled(bool);
+        regular.setEnabled(bool);
+        unregular.setEnabled(bool);
+        et_updatetime.setBackground(ContextCompat.getDrawable(DepartmentsActivity.this,R.drawable.background_arc_3));
         et_idea.setBackground(ContextCompat.getDrawable(DepartmentsActivity.this,R.drawable.background_arc_3));
 
     }

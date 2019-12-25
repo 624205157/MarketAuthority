@@ -6,10 +6,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BaseActivity;
+import com.zhhl.marketauthority.util.UntilsTime;
+
+import java.util.Date;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+
 //申请单位基本信息
 public class CompanyActivity extends BaseActivity {
     @BindView(R.id.submit)
@@ -19,7 +27,7 @@ public class CompanyActivity extends BaseActivity {
     @BindView(R.id.et_legal)
     EditText et_legal;//法定代表人
     @BindView(R.id.et_createtime)
-    EditText et_createtime;//成立日期
+    TextView et_createtime;//成立日期
     @BindView(R.id.et_assets)
     EditText et_assets;//固定资产
     @BindView(R.id.et_funds)
@@ -64,6 +72,25 @@ public class CompanyActivity extends BaseActivity {
             }
         });
         setData();
+    }
+
+    @OnClick({R.id.et_createtime})
+    public void onViewClick(View view){
+        switch (view.getId()) {
+            case R.id.et_createtime:
+                //时间选择器
+                TimePickerView pvTime = new TimePickerBuilder(CompanyActivity.this, new OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {
+                        String time = UntilsTime.getTime(date);
+                        et_createtime.setText(time);
+
+                    }
+                }).setType(new boolean[]{true, true, true, true, true, true}).build();
+                pvTime.show();
+                break;
+        }
+
     }
 
     private void changeSate() {

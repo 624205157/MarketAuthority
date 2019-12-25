@@ -400,9 +400,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
              />
-        <EditText
+        <TextView
             android:id="@+id/et_updatetime"
-            android:background="@null"
+            android:enabled="false"
+            android:background="@drawable/background_arc_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -437,7 +438,7 @@
             android:layout_marginLeft="30dp"
             android:minHeight="100dp"
             android:maxHeight="100dp"
-            android:background="@null"
+            android:background="@drawable/background_arc_3"
             app:layout_constraintRight_toRightOf="@id/et_updatetime"
             app:layout_constraintLeft_toRightOf="@id/tv_idea_title"
             app:layout_constraintTop_toTopOf="@id/tv_idea_title"
@@ -483,6 +484,8 @@
             >
             <RadioButton
                 android:id="@+id/regular"
+                android:enabled="false"
+                android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -496,6 +499,7 @@
 
             <RadioButton
                 android:id="@+id/unregular"
+                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -506,7 +510,6 @@
                 android:textColor="@color/title_text"
                 android:text="不合格"
                 android:textSize="16sp"
-                android:visibility="gone"
                 />
         </RadioGroup>
     </android.support.constraint.ConstraintLayout>
