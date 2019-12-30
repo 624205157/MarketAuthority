@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.yanzhenjie.nohttp.RequestMethod;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.TestActivity;
 import com.zhhl.marketauthority.activity.backlog.ApplyUnitResouse;
@@ -74,6 +75,12 @@ public class BacklogActivity extends BaseActivity {
     protected void onCreate() {
         addBack();
         setTitleText("待办事项");
+        getData();
+    }
+
+    private void getData() {
+
+
     }
 
 
