@@ -7,9 +7,9 @@ import android.widget.TextView;
 
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.TestActivity;
+import com.zhhl.marketauthority.activity.backlog.ApplyCategoryActivity;
+import com.zhhl.marketauthority.activity.backlog.ApplyCompanyActivity;
 import com.zhhl.marketauthority.activity.backlog.ApplyUnitResouse;
-import com.zhhl.marketauthority.activity.backlog.CompanyActivity;
 import com.zhhl.marketauthority.activity.backlog.DepartmentsActivity;
 import com.zhhl.marketauthority.activity.backlog.InspectDeviceActivity;
 import com.zhhl.marketauthority.activity.backlog.ManageStaff;
@@ -95,9 +95,10 @@ public class BacklogActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.company://申请单位基本信息
-                startActivity(new Intent(BacklogActivity.this, CompanyActivity.class));
+                startActivity(new Intent(BacklogActivity.this, ApplyCompanyActivity.class));
                 break;
-            case R.id.apply_permission_sort:
+            case R.id.apply_permission_sort://申请许可类别
+                startActivity(new Intent(BacklogActivity.this, ApplyCategoryActivity.class));
                 break;
             case R.id.check:
                 startActivity(new Intent(BacklogActivity.this,CertificationActivity.class));//相关认证
