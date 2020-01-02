@@ -15,10 +15,19 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.yanzhenjie.nohttp.NoHttp;
+import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.rest.Response;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BaseActivity;
 import com.zhhl.marketauthority.adapter.GridImageAdapter;
+import com.zhhl.marketauthority.bean.BacklogBean;
+import com.zhhl.marketauthority.config.UrlConfig;
+import com.zhhl.marketauthority.nohttp.listener.HttpListener;
+import com.zhhl.marketauthority.util.GsonUtil;
 import com.zhhl.marketauthority.util.ScreenUtils;
+import com.zhhl.marketauthority.util.ToastUtils;
 import com.zhhl.marketauthority.util.UntilsTime;
 import com.zhhl.marketauthority.view.FullyGridLayoutManager;
 import com.zhhl.marketauthority.view.GridSpacingItemNotBothDecoration;
@@ -101,8 +110,33 @@ public class DepartmentsActivity extends BaseActivity {
             }
         });
         init();
-        setData();
+        getData();
     }
+
+    private void getData() {
+
+        //Constants.URL_NOHTTP_POST
+        Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_COMMON, RequestMethod.POST);
+        request.add("N_L_ID","4cbd25f2d8874c2b9c69c6ff747f2573");
+        request.add("N_B_ID","2dcb6349acc545c1a92d6c9253d89547");
+        request.add("N_TYPE","10");
+        request(0,request,httpListener,true,true);
+
+    }
+    private HttpListener<String> httpListener = new HttpListener<String>() {
+        @Override
+        public void onSucceed(int what, Response<String> response) {
+            BacklogBean backlogBean = GsonUtil.GsonToBean(response.get(), BacklogBean.class);
+            if (backlogBean!=null){
+//                setData(backlogBean);
+            }
+        }
+
+        @Override
+        public void onFailed(int what, Response<String> response) {
+            ToastUtils.show(mContext,"请求失败");
+        }
+    };
 
     @OnClick({R.id.et_updatetime})
     public void onClickView(View view){

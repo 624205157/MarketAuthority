@@ -13,12 +13,21 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.yanzhenjie.nohttp.NoHttp;
+import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.rest.Response;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BaseActivity;
 import com.zhhl.marketauthority.adapter.GridImageAdapter;
 import com.zhhl.marketauthority.adapter.GridImageSecAdapter;
 import com.zhhl.marketauthority.adapter.GridImageThiAdapter;
+import com.zhhl.marketauthority.bean.BacklogBean;
+import com.zhhl.marketauthority.config.UrlConfig;
+import com.zhhl.marketauthority.nohttp.listener.HttpListener;
+import com.zhhl.marketauthority.util.GsonUtil;
 import com.zhhl.marketauthority.util.ScreenUtils;
+import com.zhhl.marketauthority.util.ToastUtils;
 import com.zhhl.marketauthority.view.FullyGridLayoutManager;
 import com.zhhl.marketauthority.view.GridSpacingItemNotBothDecoration;
 
@@ -113,11 +122,54 @@ public class SelfCheckDeviceActivity extends BaseActivity {
             }
         });
         init();
-        setData();
+        getData();
     }
+    private void getData() {
 
+        //Constants.URL_NOHTTP_POST
+        Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_COMMON, RequestMethod.POST);
+        request.add("N_L_ID","4cbd25f2d8874c2b9c69c6ff747f2573");
+        request.add("N_B_ID","2dcb6349acc545c1a92d6c9253d89547");
+        request.add("N_TYPE","6");
+        request(0,request,httpListener,true,true);
+
+    }
+    private HttpListener<String> httpListener = new HttpListener<String>() {
+        @Override
+        public void onSucceed(int what, Response<String> response) {
+            BacklogBean backlogBean = GsonUtil.GsonToBean(response.get(), BacklogBean.class);
+            if (backlogBean!=null){
+//                setData(backlogBean);
+            }
+        }
+
+        @Override
+        public void onFailed(int what, Response<String> response) {
+            ToastUtils.show(mContext,"请求失败");
+        }
+    };
     private void setData() {
+        et_name_device.setText("");//cl_1 仪器设备名称
+        et_equipment_devcie.setText("");//cl_1 仪器设备能力
+        et_count_device.setText("");//cl_1 仪器设备数
+//         radio_result;//评审结果
+//         regular;//合格
+//         unregular;//不合格
 
+        et_name_device2.setText("");//cl_2 仪器设备名称
+        et_equipment_devcie2.setText("");//cl_2 仪器设备能力
+        et_count_device2.setText("");//cl_2 仪器设备数
+        et_idea.setText("");//cl_2 评审意见
+//         radio_result2;//cl_2评审结果
+//         regular2;//cl_2合格
+//         unregular2;//cl_2不合格
+
+        et_name_device3.setText("");//cl_3 仪器设备名称
+        et_equipment_devcie3.setText("");//cl_3 仪器设备能力
+        et_count_device3.setText("");//cl_3 仪器设备数
+//         radio_result3;//cl_3评审结果
+//         regular3;//cl_3合格
+//         unregular3;//cl_3不合格
     }
 
     private void init() {

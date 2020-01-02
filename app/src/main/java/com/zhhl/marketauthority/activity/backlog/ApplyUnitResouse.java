@@ -19,10 +19,19 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.yanzhenjie.nohttp.NoHttp;
+import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.rest.Response;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BaseActivity;
 import com.zhhl.marketauthority.adapter.GridImageAdapter;
+import com.zhhl.marketauthority.bean.BacklogBean;
+import com.zhhl.marketauthority.config.UrlConfig;
+import com.zhhl.marketauthority.nohttp.listener.HttpListener;
+import com.zhhl.marketauthority.util.GsonUtil;
 import com.zhhl.marketauthority.util.ScreenUtils;
+import com.zhhl.marketauthority.util.ToastUtils;
 import com.zhhl.marketauthority.util.UntilsTime;
 import com.zhhl.marketauthority.view.FullyGridLayoutManager;
 import com.zhhl.marketauthority.view.GridSpacingItemNotBothDecoration;
@@ -99,8 +108,31 @@ public class ApplyUnitResouse extends BaseActivity {
             }
         });
         init();
-        setData();
     }
+    private void getData() {
+
+        //Constants.URL_NOHTTP_POST
+        Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_COMMON, RequestMethod.POST);
+        request.add("N_L_ID","4cbd25f2d8874c2b9c69c6ff747f2573");
+        request.add("N_B_ID","2dcb6349acc545c1a92d6c9253d89547");
+        request.add("N_TYPE","11");
+        request(0,request,httpListener,true,true);
+
+    }
+    private HttpListener<String> httpListener = new HttpListener<String>() {
+        @Override
+        public void onSucceed(int what, Response<String> response) {
+            BacklogBean backlogBean = GsonUtil.GsonToBean(response.get(), BacklogBean.class);
+            if (backlogBean!=null){
+//                setData(backlogBean);
+            }
+        }
+
+        @Override
+        public void onFailed(int what, Response<String> response) {
+            ToastUtils.show(mContext,"请求失败");
+        }
+    };
     @OnClick({R.id.et_updatetime})
     public void onViewClick(View view){
         switch (view.getId()){
@@ -141,6 +173,18 @@ public class ApplyUnitResouse extends BaseActivity {
         }
     };
     private void setData() {
+        et_area_all.setText("");//占地面积
+        et_area_exposure.setText("");//曝光室面积
+        et_code.setText("");//统一社会信用代码
+        et_ability.setText("");//设计能力(种)
+        et_area_workshop.setText("");//厂房面积
+        et_count_design.setText("");//设计人员数
+        et_legal.setText("");//法定代表人
+        et_count_other.setText("");//其他专业人员数
+        et_output.setText("");//年产值
+        et_updatetime.setText("");//评审时间
+        et_idea.setText("");//评审意见
+        regular.setChecked(true); //评审结果
 
     }
 

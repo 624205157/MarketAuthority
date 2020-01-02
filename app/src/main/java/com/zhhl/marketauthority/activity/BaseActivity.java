@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -19,10 +20,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import com.yanzhenjie.nohttp.NoHttp;
+import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.rest.RequestQueue;
 import com.zhhl.marketauthority.CameraActivity;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.TestActivity;
+import com.zhhl.marketauthority.nohttp.listener.HttpListener;
+import com.zhhl.marketauthority.nohttp.listener.HttpResponseListener;
 
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportActivity;
@@ -38,11 +42,22 @@ public abstract class BaseActivity extends SupportActivity {
     private ImageView change;
     private ProgressDialog progressDialog;
     private final int GET_PERMISSION_REQUEST = 100; //权限申请自定义码
+    /**
+     * 用来标记取消。
+     */
+    private Object object = new Object();
+
+    /**
+     * 请求队列。
+     */
+    private RequestQueue mQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setContentView());
         ButterKnife.bind(this);
+        // 初始化请求队列，传入的参数是请求并发值。
+        mQueue = NoHttp.newRequestQueue(1);
         title = findViewById(R.id.title_text);
         mContext = this;
         setStatusBar();
@@ -61,6 +76,7 @@ public abstract class BaseActivity extends SupportActivity {
         }
 
     }
+
 
     protected void setTitleText(String titleStr) {
         title.setText(titleStr);
@@ -220,5 +236,21 @@ public abstract class BaseActivity extends SupportActivity {
                 }
             }
         }
+    }
+
+    /**
+     * 发起请求。
+     *
+     * @param what      what.
+     * @param request   请求对象。
+     * @param callback  回调函数。
+     * @param canCancel 是否能被用户取消。
+     * @param isLoading 实现显示加载框。
+     * @param <T>       想请求到的数据类型。
+     */
+    public <T> void request(int what, Request<T> request, HttpListener<T> callback,
+                            boolean canCancel, boolean isLoading) {
+        request.setCancelSign(object);
+        mQueue.add(what, request, new HttpResponseListener<>(this, request, callback, canCancel, isLoading));
     }
 }

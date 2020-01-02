@@ -12,19 +12,22 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
-import com.yanzhenjie.nohttp.rest.StringRequest;
-import com.yanzhenjie.nohttp.rest.SyncRequestExecutor;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BaseActivity;
 import com.zhhl.marketauthority.adapter.GridImageAdapter;
-import com.zhhl.marketauthority.bean.UploadImage;
+import com.zhhl.marketauthority.bean.BacklogBean;
 import com.zhhl.marketauthority.config.UrlConfig;
+import com.zhhl.marketauthority.nohttp.listener.HttpListener;
+import com.zhhl.marketauthority.util.GsonUtil;
 import com.zhhl.marketauthority.util.ScreenUtils;
+import com.zhhl.marketauthority.util.ToastUtils;
 import com.zhhl.marketauthority.view.FullyGridLayoutManager;
 import com.zhhl.marketauthority.view.GridSpacingItemNotBothDecoration;
-
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,10 +80,38 @@ public class ProduceActivity  extends BaseActivity {
             }
         });
         init();
-        setData();
-        uploadImage();
+        getData();
     }
 
+    private void getData() {
+
+        Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_COMMON, RequestMethod.POST);
+        request.add("N_L_ID","4cbd25f2d8874c2b9c69c6ff747f2573");
+        request.add("N_B_ID","2dcb6349acc545c1a92d6c9253d89547");
+        request.add("N_TYPE","4");
+        request(0,request,httpListener,true,true);
+
+    }
+    private HttpListener<String> httpListener = new HttpListener<String>() {
+        @Override
+        public void onSucceed(int what, Response<String> response) {
+            BacklogBean backlogBean = GsonUtil.GsonToBean(response.get(), BacklogBean.class);
+            if (backlogBean!=null){
+//                setData(backlogBean);
+            }
+        }
+
+        @Override
+        public void onFailed(int what, Response<String> response) {
+            ToastUtils.show(mContext,"请求失败");
+        }
+    };
+    public void setData(){
+         et_name_product.setText("");//产品名称
+         et_device_type.setText("");//设备品种/类别
+         et_param_level.setText("");//参数级别
+         et_device_model.setText("");//设备型号
+    };
     private void changeSate(Boolean bool) {
         et_name_product.setEnabled(bool);
         et_device_type.setEnabled(bool);
@@ -120,9 +151,7 @@ public class ProduceActivity  extends BaseActivity {
 
         }
     };
-    private void setData() {
 
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -139,7 +168,6 @@ public class ProduceActivity  extends BaseActivity {
 //                                ScreenUtils.dip2px(ApplyUnitResouse.this, 4), true, false));
             }
             adapter.notifyDataSetChanged();
-            uploadImage();
         }
         if (resultCode == 102) {
             Log.i("CJT", "video");
@@ -148,22 +176,6 @@ public class ProduceActivity  extends BaseActivity {
         if (resultCode == 103) {
             Toast.makeText(this, "请检查相机权限~", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void uploadImage() {
-        StringRequest request = new StringRequest(UrlConfig.path2, RequestMethod.GET);
-        request.add("N_L_ID","3161f998e10f404b8679e3c669a6679f");
-        request.add("N_B_ID","c4d498ef95684e35a40bd0c3bbb7086c");
-        request.add("N_TYPE","4");
-        Response<String> response = SyncRequestExecutor.INSTANCE.execute(request);
-        if (response.isSucceed()) {
-            // 请求成功。
-            System.out.println("请求结果的返回："+response.get().toString());
-        } else {
-            // 请求失败，拿到错误：
-            Exception e = response.getException();
-        }
-
     }
 
 }
