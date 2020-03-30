@@ -11,6 +11,4 @@ public class BacklogRootFragment extends GroupPopFragment {
             loadRootFragment(R.id.home, new BacklogFragment());
         }
     }
-
-
 }

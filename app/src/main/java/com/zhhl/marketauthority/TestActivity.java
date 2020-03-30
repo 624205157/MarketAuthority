@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.cjt2325.cameralibrary.util.DeviceUtil;
 
+import java.io.File;
+
 public class TestActivity extends AppCompatActivity {
     private final int GET_PERMISSION_REQUEST = 100; //权限申请自定义码
     private ImageView photo;
@@ -69,10 +71,15 @@ public class TestActivity extends AppCompatActivity {
             Log.i("CJT", "picture");
             String path = data.getStringExtra("path");
             photo.setImageBitmap(BitmapFactory.decodeFile(path));
+            System.out.println("图片路径："+path);
         }
         if (resultCode == 102) {
             Log.i("CJT", "video");
             String path = data.getStringExtra("path");
+            String video_path = data.getStringExtra("video");
+            File file = new File(video_path);
+            System.out.println("文件大小："+file.length());
+            System.out.println("视频路径："+video_path);
         }
         if (resultCode == 103) {
             Toast.makeText(this, "请检查相机权限~", Toast.LENGTH_SHORT).show();

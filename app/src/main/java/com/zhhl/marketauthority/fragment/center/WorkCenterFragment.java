@@ -1,5 +1,8 @@
 package com.zhhl.marketauthority.fragment.center;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.fragment.BaseFragment;
 
@@ -13,8 +16,9 @@ public class WorkCenterFragment extends BaseFragment {
         return R.layout.fragment_work_center;
     }
 
+
     @Override
     protected void lazyLoad() {
-
+        setTitleText("工作中心");
     }
 }

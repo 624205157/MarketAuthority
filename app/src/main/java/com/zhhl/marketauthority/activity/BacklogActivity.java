@@ -5,22 +5,26 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.activity.backlog.ApplyCategoryActivity;
 import com.zhhl.marketauthority.activity.backlog.ApplyCompanyActivity;
 import com.zhhl.marketauthority.activity.backlog.ApplyUnitResouse;
 import com.zhhl.marketauthority.activity.backlog.DepartmentsActivity;
 import com.zhhl.marketauthority.activity.backlog.InspectDeviceActivity;
-import com.zhhl.marketauthority.activity.backlog.ManageStaff;
 import com.zhhl.marketauthority.activity.backlog.PramaryDeviceActivity;
 import com.zhhl.marketauthority.activity.backlog.ProduceActivity;
 import com.zhhl.marketauthority.activity.backlog.SelfCheckDeviceActivity;
-import com.zhhl.marketauthority.activity.backlog.SubcontractActivity;
+import com.zhhl.marketauthority.activity.backloglist.ApplyAllowListActivity;
+import com.zhhl.marketauthority.activity.backloglist.CertificationListActivity;
+import com.zhhl.marketauthority.activity.backloglist.InspectDeviceListActivity;
+import com.zhhl.marketauthority.activity.backloglist.ManageStaffListActivity;
+import com.zhhl.marketauthority.activity.backloglist.PramaryDeviceListActivity;
+import com.zhhl.marketauthority.activity.backloglist.ProduceListActivity;
+import com.zhhl.marketauthority.activity.backloglist.SelfCheckDeviceListActivity;
+import com.zhhl.marketauthority.activity.backloglist.SubcontractListActivity;
 import com.zhhl.marketauthority.bean.BacklogBean;
 import com.zhhl.marketauthority.config.UrlConfig;
 import com.zhhl.marketauthority.nohttp.listener.HttpListener;
@@ -53,13 +57,13 @@ public class BacklogActivity extends BaseActivity {
     @BindView(R.id.address)
     TextView address;//单位地址
     @BindView(R.id.sort)
-    TextView sort;
+    TextView sort;//许可项目
     @BindView(R.id.children)
-    TextView children;
+    TextView children;//许可子项
     @BindView(R.id.level)
-    TextView level;
+    TextView level;//级别
     @BindView(R.id.type)
-    TextView type;
+    TextView type;//参数
     @BindView(R.id.operating_2_state)
     ImageView operating2State;
     @BindView(R.id.equipment_1_state)
@@ -74,7 +78,8 @@ public class BacklogActivity extends BaseActivity {
     ImageView personnel2State;
     @BindView(R.id.application_1_state)
     ImageView application1State;
-
+    private String N_L_ID;
+    private String N_B_ID;
     @Override
     protected int setContentView() {
         return R.layout.activity_backlog;
@@ -90,10 +95,11 @@ public class BacklogActivity extends BaseActivity {
     private void getData() {
 
         //Constants.URL_NOHTTP_POST
+        Intent intent = getIntent();
         Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_COMMON, RequestMethod.POST);
-        request.add("N_L_ID","4cbd25f2d8874c2b9c69c6ff747f2573");
-        request.add("N_B_ID","2dcb6349acc545c1a92d6c9253d89547");
-        request.add("N_TYPE","1");
+        request.add("N_L_ID",intent.getStringExtra("N_L_ID"));
+        request.add("N_B_ID",intent.getStringExtra("N_B_ID"));
+        request.add("N_TYPE","0");
         request(0,request,httpListener,true,true);
 
     }
@@ -101,10 +107,8 @@ public class BacklogActivity extends BaseActivity {
         @Override
         public void onSucceed(int what, Response<String> response) {
             BacklogBean backlogBean = GsonUtil.GsonToBean(response.get(), BacklogBean.class);
-            if (backlogBean==null){
-                System.out.println("==================================空空");
-            }
-            System.out.println("获取到的数据："+response.get());
+            N_L_ID =  backlogBean.getObj().getN_L_ID();
+            N_B_ID = backlogBean.getObj().getN_B_ID();
             setData(backlogBean);
         }
 
@@ -116,6 +120,8 @@ public class BacklogActivity extends BaseActivity {
 
     private void setData(BacklogBean backlogBean) {
         BacklogBean.ObjBean.ResBean bean = backlogBean.getObj().getRes();
+        BacklogBean.ObjBean.Res1Bean bean1 = backlogBean.getObj().getRes1().get(0);
+        //申请单位基本信息
         name.setText(bean.getV_C_NAME());
         legalPerson.setText(bean.getV_LEGAL_PERSON());
         industry.setText(bean.getV_TRADE());
@@ -123,50 +129,86 @@ public class BacklogActivity extends BaseActivity {
         assets.setText(bean.getFIXED_ASSETS());
         registeredCapital.setText(bean.getREGISTERED_CAPITAL());
         address.setText(bean.getV_ADDRESS());
+        //申请许可类别
+        sort.setText(bean1.getN_FIRST_ID());
+        children.setText(bean1.getN_SECOND_ID());
+        level.setText(bean1.getN_THIRD_ID());
+        type.setText(bean1.getV_PARA_ID());
     }
 
-    @OnClick(R.id.review)
-    public void onViewClicked() {
-//        showToast("测试");
-        BottomDialogFr bottomDialogFr = new BottomDialogFr();
-        bottomDialogFr.show(getSupportFragmentManager(), "BacklogActivity");
-    }
+//    @OnClick(R.id.review)
+//    public void onViewClicked() {
+////        showToast("测试");
+//        BottomDialogFr bottomDialogFr = new BottomDialogFr();
+//        bottomDialogFr.setN_B_ID(N_B_ID);
+//        bottomDialogFr.show(getSupportFragmentManager(), "BacklogActivity");
+//    }
 
-    @OnClick({R.id.company, R.id.apply_permission_sort, R.id.check, R.id.operating_rl_1, R.id.operating_rl_2, R.id.equipment_rl_1, R.id.equipment_rl_2, R.id.equipment_rl_3, R.id.personnel_rl_1, R.id.personnel_rl_2, R.id.application_rl_1})
+    @OnClick({R.id.review,R.id.company, R.id.apply_permission_sort, R.id.check, R.id.operating_rl_1, R.id.operating_rl_2, R.id.equipment_rl_1, R.id.equipment_rl_2, R.id.equipment_rl_3, R.id.personnel_rl_1, R.id.personnel_rl_2, R.id.application_rl_1})
     public void onViewClicked(View view) {
+        Intent intent = new Intent();
+        intent.putExtra("N_L_ID",N_L_ID);
+        intent.putExtra("N_B_ID",N_B_ID);
         switch (view.getId()) {
             case R.id.company://申请单位基本信息
-                startActivity(new Intent(BacklogActivity.this, ApplyCompanyActivity.class));
+//                startActivity(new Intent(BacklogActivity.this, ApplyCompanyActivity.class));
+                intent.setClass(mContext,ApplyCompanyActivity.class);
+                startActivity(intent);
                 break;
             case R.id.apply_permission_sort://申请许可类别
-                startActivity(new Intent(BacklogActivity.this, ApplyCategoryActivity.class));
+//                startActivity(new Intent(BacklogActivity.this, ApplyAllowListActivity.class));
+                intent.setClass(mContext,ApplyAllowListActivity.class);
+                startActivity(intent);
                 break;
-            case R.id.check:
-                startActivity(new Intent(BacklogActivity.this,CertificationActivity.class));//相关认证
+            case R.id.check://相关认证
+                intent.setClass(mContext,CertificationListActivity.class);
+                startActivity(intent);
                 break;
             case R.id.operating_rl_1://试生产(制造)情况
-                startActivity(new Intent(BacklogActivity.this, ProduceActivity.class));
+                intent.setClass(mContext,ProduceListActivity.class);
+                startActivity(intent);
                 break;
             case R.id.operating_rl_2://分包、外协情况
-                startActivity(new Intent(BacklogActivity.this, SubcontractActivity.class));
+                intent.setClass(mContext,SubcontractListActivity.class);
+                startActivity(intent);
                 break;
-            case R.id.equipment_rl_1://自行校验一起设备能力
-                startActivity(new Intent(BacklogActivity.this, SelfCheckDeviceActivity.class));
+            case R.id.equipment_rl_1://自行校验仪器设备能力
+                intent.setClass(mContext,SelfCheckDeviceListActivity.class);
+                startActivity(intent);
                 break;
             case R.id.equipment_rl_2://主要生产设备状况
-                startActivity(new Intent(BacklogActivity.this, PramaryDeviceActivity.class));
+                intent.setClass(mContext,PramaryDeviceListActivity.class);
+                startActivity(intent);
                 break;
             case R.id.equipment_rl_3://主要检验与试验仪器设备状况
-                startActivity(new Intent(BacklogActivity.this, InspectDeviceActivity.class));
+                intent.setClass(mContext,InspectDeviceListActivity.class);
+                startActivity(intent);
                 break;
             case R.id.personnel_rl_1://管理、专业、作业人员情况
-                startActivity(new Intent(BacklogActivity.this, ManageStaff.class));
+//                startActivity(new Intent(BacklogActivity.this, ManageStaffListActivity.class));
+                intent.setClass(mContext,ManageStaffListActivity.class);
+                startActivity(intent);
                 break;
             case R.id.personnel_rl_2://各部门人员组成
-                startActivity(new Intent(BacklogActivity.this, DepartmentsActivity.class));
+//                startActivity(new Intent(BacklogActivity.this, DepartmentsActivity.class));
+                intent.setClass(mContext,DepartmentsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.application_rl_1://申请单位资源
-                startActivity(new Intent(BacklogActivity.this, ApplyUnitResouse.class));
+//                startActivity(new Intent(BacklogActivity.this, ApplyUnitResouse.class));
+                intent.setClass(mContext,ApplyUnitResouse.class);
+                startActivity(intent);
+                break;
+            case R.id.review:
+//                BottomDialogFr bottomDialogFr = new BottomDialogFr();
+//                bottomDialogFr.setN_B_ID(N_B_ID);
+//                bottomDialogFr.show(getSupportFragmentManager(), "BacklogActivity");
+
+                intent.setClass(mContext,ReviewActvity.class);
+                intent.putExtra("N_L_ID",N_L_ID);
+                intent.putExtra("N_B_ID",N_B_ID);
+                startActivity(intent);
+                overridePendingTransition(R.anim.dialog_fr_in,R.anim.dialog_fr_out_hide);
                 break;
         }
     }

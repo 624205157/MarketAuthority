@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,30 +12,37 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BaseActivity;
-import com.zhhl.marketauthority.adapter.GridImageAdapter;
 import com.zhhl.marketauthority.adapter.GridImageSecAdapter;
-import com.zhhl.marketauthority.adapter.GridImageThiAdapter;
-import com.zhhl.marketauthority.bean.BacklogBean;
+import com.zhhl.marketauthority.bean.ApplyCompanyBean;
+import com.zhhl.marketauthority.bean.SelfCheckDeviceBean;
 import com.zhhl.marketauthority.config.UrlConfig;
 import com.zhhl.marketauthority.nohttp.listener.HttpListener;
 import com.zhhl.marketauthority.util.GsonUtil;
 import com.zhhl.marketauthority.util.ScreenUtils;
 import com.zhhl.marketauthority.util.ToastUtils;
+import com.zhhl.marketauthority.util.UntilsTime;
 import com.zhhl.marketauthority.view.FullyGridLayoutManager;
 import com.zhhl.marketauthority.view.GridSpacingItemNotBothDecoration;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-//自行校验一起设备能力
+//自行校验仪器设备能力
 public class SelfCheckDeviceActivity extends BaseActivity {
     @BindView(R.id.et_name_device)
     EditText et_name_device;//cl_1 仪器设备名称
@@ -44,66 +50,33 @@ public class SelfCheckDeviceActivity extends BaseActivity {
     EditText et_equipment_devcie;//cl_1 仪器设备能力
     @BindView(R.id.et_count_device)
     EditText et_count_device;//cl_1 仪器设备数
+    @BindView(R.id.et_device_type)
+    EditText et_device_type;//规格型号
+    @BindView(R.id.et_use_data)
+    TextView et_use_data;//投用日期
     @BindView(R.id.radio_result)
     RadioGroup radio_result;//评审结果
     @BindView(R.id.regular)
     RadioButton regular;//合格
     @BindView(R.id.unregular)
     RadioButton unregular;//不合格
-
-    @BindView(R.id.et_name_device2)
-    EditText et_name_device2;//cl_2 仪器设备名称
-    @BindView(R.id.et_equipment_devcie2)
-    EditText et_equipment_devcie2;//cl_2 仪器设备能力
-    @BindView(R.id.et_count_device2)
-    EditText et_count_device2;//cl_2 仪器设备数
-    @BindView(R.id.et_idea)
-    EditText et_idea;//cl_2 评审意见
-    @BindView(R.id.radio_result2)
-    RadioGroup radio_result2;//cl_2评审结果
-    @BindView(R.id.regular2)
-    RadioButton regular2;//cl_2合格
-    @BindView(R.id.unregular2)
-    RadioButton unregular2;//cl_2不合格
-
-    @BindView(R.id.et_name_device3)
-    EditText et_name_device3;//cl_3 仪器设备名称
-    @BindView(R.id.et_equipment_devcie3)
-    EditText et_equipment_devcie3;//cl_3 仪器设备能力
-    @BindView(R.id.et_count_device3)
-    EditText et_count_device3;//cl_3 仪器设备数
-    @BindView(R.id.radio_result3)
-    RadioGroup radio_result3;//cl_3评审结果
-    @BindView(R.id.regular3)
-    RadioButton regular3;//cl_3合格
-    @BindView(R.id.unregular3)
-    RadioButton unregular3;//cl_3不合格
-
     @BindView(R.id.submit)
     TextView submit;//提交
+    @BindView(R.id.et_updatetime)
+    TextView et_updatetime;
+    @BindView(R.id.et_idea)
+    TextView et_idea;
     @BindView(R.id.recycler)
     RecyclerView recycler;
-    @BindView(R.id.recycler2)
-    RecyclerView recycler2;
-    @BindView(R.id.recycler3)
-    RecyclerView recycler3;
     private ImageView back;
     private ImageView change;
     private Boolean markBool = true;
     List<String> selectList = new ArrayList<String>();
     FullyGridLayoutManager manager;
-    FullyGridLayoutManager manager2;
-    FullyGridLayoutManager manager3;
-    GridImageAdapter adapter;
-
-    List<String> selectList2 = new ArrayList<String>();
-    GridImageSecAdapter adapter2;
-
-    List<String> selectList3 = new ArrayList<String>();
-    GridImageThiAdapter adapter3;
+    GridImageSecAdapter adapter;
     private static final int REQUESTCODE = 100;
-    private static final int REQUESTCODE2 = 101;
-    private static final int REQUESTCODE3 = 102;
+    SelfCheckDeviceBean.ObjBean.ResBean resBean;
+    private String result = "0";
     @Override
     protected int setContentView() {
         return R.layout.activity_selfcheck_device;
@@ -112,7 +85,7 @@ public class SelfCheckDeviceActivity extends BaseActivity {
     @Override
     protected void onCreate() {
         addBack();
-        setTitleText("主要检验与试验仪器设备状况");
+        setTitleText("自行校验仪器设备能力");
         change = addChange();
         change.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,20 +99,71 @@ public class SelfCheckDeviceActivity extends BaseActivity {
     }
     private void getData() {
 
-        //Constants.URL_NOHTTP_POST
-        Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_COMMON, RequestMethod.POST);
-        request.add("N_L_ID","4cbd25f2d8874c2b9c69c6ff747f2573");
-        request.add("N_B_ID","2dcb6349acc545c1a92d6c9253d89547");
-        request.add("N_TYPE","6");
-        request(0,request,httpListener,true,true);
+        resBean = (SelfCheckDeviceBean.ObjBean.ResBean) getIntent().getExtras().get("data");
+        setData(resBean);
 
     }
+    @OnClick({R.id.submit,R.id.et_use_data,R.id.et_updatetime})
+    public void onClickView(View view){
+        switch (view.getId()){
+            case R.id.submit:
+                uploadData();
+                break;
+            case R.id.et_use_data:
+                TimePickerView pvTime = new TimePickerBuilder(mContext, new OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {
+                        String time = UntilsTime.getTime(date);
+                        et_use_data.setText(time);
+
+                    }
+                }).setType(new boolean[]{true, true, true, false, false, false}).isDialog(false).build();
+                pvTime.show();
+                break;
+            case R.id.et_updatetime:
+                TimePickerView pvTime2 = new TimePickerBuilder(mContext, new OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelect(Date date, View v) {
+                        String time = UntilsTime.getTime(date);
+                        et_updatetime.setText(time);
+
+                    }
+                }).setType(new boolean[]{true, true, true, true, true, true}).isDialog(false).build();
+                pvTime2.show();
+                break;
+        }
+    }
+
+    private void uploadData() {
+
+        String name_device = et_name_device.getText().toString();
+        String equipment_devcie = et_equipment_devcie.getText().toString();
+        String count_device = et_count_device.getText().toString();
+        String device_type = et_device_type.getText().toString();
+        String updatetime = et_updatetime.getText().toString();
+        String use_date = et_use_data.getText().toString();
+        String idea =  et_idea.getText().toString();//评审意见
+        Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_UPLOAD_DATA, RequestMethod.POST);
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",resBean.getN_V_ID());
+        map.put("tjlx","6");
+        map.put("v_v_name",name_device);
+        map.put("v_v_type",device_type);
+        map.put("d_v_begin",use_date);
+        map.put("v_v_num",count_device);
+        map.put("v_v_perfor",equipment_devcie);
+        map.put("pssj",updatetime);
+        map.put("psyj",idea);
+        map.put("pszt",result);
+        request.add(map);
+        request(1,request,httpListener,true,true);
+    }
+
     private HttpListener<String> httpListener = new HttpListener<String>() {
         @Override
         public void onSucceed(int what, Response<String> response) {
-            BacklogBean backlogBean = GsonUtil.GsonToBean(response.get(), BacklogBean.class);
-            if (backlogBean!=null){
-//                setData(backlogBean);
+            if (what==1){
+                ToastUtils.show(mContext,"修改成功");
             }
         }
 
@@ -148,167 +172,90 @@ public class SelfCheckDeviceActivity extends BaseActivity {
             ToastUtils.show(mContext,"请求失败");
         }
     };
-    private void setData() {
-        et_name_device.setText("");//cl_1 仪器设备名称
-        et_equipment_devcie.setText("");//cl_1 仪器设备能力
-        et_count_device.setText("");//cl_1 仪器设备数
-//         radio_result;//评审结果
-//         regular;//合格
-//         unregular;//不合格
-
-        et_name_device2.setText("");//cl_2 仪器设备名称
-        et_equipment_devcie2.setText("");//cl_2 仪器设备能力
-        et_count_device2.setText("");//cl_2 仪器设备数
-        et_idea.setText("");//cl_2 评审意见
-//         radio_result2;//cl_2评审结果
-//         regular2;//cl_2合格
-//         unregular2;//cl_2不合格
-
-        et_name_device3.setText("");//cl_3 仪器设备名称
-        et_equipment_devcie3.setText("");//cl_3 仪器设备能力
-        et_count_device3.setText("");//cl_3 仪器设备数
-//         radio_result3;//cl_3评审结果
-//         regular3;//cl_3合格
-//         unregular3;//cl_3不合格
+    private void setData(SelfCheckDeviceBean.ObjBean.ResBean resBean) {
+        et_name_device.setText(resBean.getV_V_NAME());//cl_1 仪器设备名称
+        et_equipment_devcie.setText(resBean.getV_V_PERFOR());//cl_1 仪器设备能力
+        et_count_device.setText(resBean.getV_V_NUM());//cl_1 仪器设备数
+        et_device_type.setText(resBean.getV_V_TYPE());//规格型号
+        et_use_data.setText(resBean.getD_V_BEGIN());//投用日期
+        et_updatetime.setText(resBean.getPSSJ());//评审时间
+        et_idea.setText(resBean.getPSYJ());
+        if (resBean.getPSZT().equals("0")){
+            regular.setChecked(false);
+            unregular.setChecked(false);
+        }else if(resBean.getPSZT().equals("1")){
+            regular.setChecked(true);
+            unregular.setChecked(false);
+        }else if(resBean.getPSZT().equals("2")){
+            regular.setChecked(false);
+            unregular.setChecked(true);
+        }
     }
 
     private void init() {
         manager = new FullyGridLayoutManager(this,
-                1, GridLayoutManager.VERTICAL, false);
+                5, GridLayoutManager.VERTICAL, false);
         recycler.setLayoutManager(manager);
         recycler.addItemDecoration(new GridSpacingItemNotBothDecoration(5,
                 ScreenUtils.dip2px(SelfCheckDeviceActivity.this, 4), true, false));
-        adapter = new GridImageAdapter(SelfCheckDeviceActivity.this, onAddPicClickListener);
-        adapter.setList(selectList);//设置数据
+        adapter = new GridImageSecAdapter(SelfCheckDeviceActivity.this, onAddPicClickListener,onDelete);
+//        adapter.setList(selectList);//设置数据
         recycler.setAdapter(adapter);
-
-        manager2 = new FullyGridLayoutManager(this,
-                1, GridLayoutManager.VERTICAL, false);
-        recycler2.setLayoutManager(manager2);
-        recycler2.addItemDecoration(new GridSpacingItemNotBothDecoration(5,
-                ScreenUtils.dip2px(SelfCheckDeviceActivity.this, 4), true, false));
-        adapter2 = new GridImageSecAdapter(SelfCheckDeviceActivity.this, onAddPicClickListener2);
-        adapter2.setList(selectList2);//设置数据
-        recycler2.setAdapter(adapter2);
-
-        manager3 = new FullyGridLayoutManager(this,
-                1, GridLayoutManager.VERTICAL, false);
-        recycler3.setLayoutManager(manager3);
-        recycler3.addItemDecoration(new GridSpacingItemNotBothDecoration(5,
-                ScreenUtils.dip2px(SelfCheckDeviceActivity.this, 4), true, false));
-        adapter3 = new GridImageThiAdapter(SelfCheckDeviceActivity.this, onAddPicClickListener3);
-        adapter3.setList(selectList3);//设置数据
-        recycler3.setAdapter(adapter3);
+        radio_result.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.regular:
+                        result = "1";
+                        break;
+                    case R.id.unregular:
+                        result = "2";
+                        break;
+                }
+            }
+        });
     }
-    private GridImageAdapter.onAddPicClickListener onAddPicClickListener = new GridImageAdapter.onAddPicClickListener() {
+    private GridImageSecAdapter.onAddPicClickListener onAddPicClickListener = new GridImageSecAdapter.onAddPicClickListener() {
 
         @Override
         public void onAddPicClick() {
 
-            manager = new FullyGridLayoutManager(SelfCheckDeviceActivity.this,
-                    selectList.size()+1, GridLayoutManager.VERTICAL, false);
-            recycler.setLayoutManager(manager);
             getPermissions(REQUESTCODE);
 
-            System.out.println("第一部分");
 
         }
     };
-    private GridImageSecAdapter.onAddPicClickListener onAddPicClickListener2 = new GridImageSecAdapter.onAddPicClickListener() {
 
+    private GridImageSecAdapter.OnDelete onDelete = new GridImageSecAdapter.OnDelete() {
         @Override
-        public void onAddPicClick() {
-
-            manager2 = new FullyGridLayoutManager(SelfCheckDeviceActivity.this,
-                    selectList2.size()+1, GridLayoutManager.VERTICAL, false);
-            recycler2.setLayoutManager(manager2);
-            getPermissions(REQUESTCODE2);
-            System.out.println("第二部分");
+        public void onItemDelete(int mark) {
 
         }
     };
-    private GridImageThiAdapter.onAddPicClickListener onAddPicClickListener3 = new GridImageThiAdapter.onAddPicClickListener() {
-
-        @Override
-        public void onAddPicClick() {
-
-            manager3 = new FullyGridLayoutManager(SelfCheckDeviceActivity.this,
-                    selectList3.size()+1, GridLayoutManager.VERTICAL, false);
-            recycler3.setLayoutManager(manager3);
-            getPermissions(REQUESTCODE3);
-            System.out.println("第三部分");
-
-        }
-    };
-
-
     private void changeSate(Boolean markBool) {
         et_name_device.setEnabled(markBool);
         et_equipment_devcie.setEnabled(markBool);
         et_count_device.setEnabled(markBool);
         radio_result.setEnabled(markBool);
+        et_device_type.setEnabled(markBool);
+        et_use_data.setEnabled(markBool);
         et_name_device.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
         et_equipment_devcie.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
         et_count_device.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
-
-        et_name_device2.setEnabled(markBool);
-        et_equipment_devcie2.setEnabled(markBool);
-        et_count_device2.setEnabled(markBool);
-        radio_result2.setEnabled(markBool);
-        et_idea.setEnabled(markBool);
-        et_name_device2.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
-        et_equipment_devcie2.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
-        et_count_device2.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
-        et_idea.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
-
-        et_name_device3.setEnabled(markBool);
-        et_equipment_devcie3.setEnabled(markBool);
-        et_count_device3.setEnabled(markBool);
-        radio_result3.setEnabled(markBool);
-
-        et_name_device3.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
-        et_equipment_devcie3.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
-        et_count_device3.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
-
+        et_device_type.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
+        et_use_data.setBackground(ContextCompat.getDrawable(SelfCheckDeviceActivity.this,R.drawable.background_arc_3));
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("请求验证码："+requestCode);
         if (resultCode == 101) {
-            Log.i("CJT", "picture");
             String path = data.getStringExtra("path");
             if (requestCode ==REQUESTCODE){
             selectList.add(path);
-            if (selectList.size()<5){
-                manager = new FullyGridLayoutManager(this,
-                        selectList.size()+1, GridLayoutManager.VERTICAL, false);
-                recycler.setLayoutManager(manager);
-            }
-            adapter.notifyDataSetChanged();
-            }
-            if (requestCode == REQUESTCODE2){
-                selectList2.add(path);
-                if (selectList2.size()<5){
-                    manager2 = new FullyGridLayoutManager(this,
-                            selectList2.size()+1, GridLayoutManager.VERTICAL, false);
-                    recycler2.setLayoutManager(manager2);
-                }
-                adapter2.notifyDataSetChanged();
-            }
-            if (requestCode == REQUESTCODE3){
-                selectList3.add(path);
-                if (selectList3.size()<5){
-                    manager3 = new FullyGridLayoutManager(this,
-                            selectList3.size()+1, GridLayoutManager.VERTICAL, false);
-                    recycler3.setLayoutManager(manager3);
-                }
-                adapter3.notifyDataSetChanged();
             }
         }
         if (resultCode == 102) {
-            Log.i("CJT", "video");
             String path = data.getStringExtra("path");
         }
         if (resultCode == 103) {

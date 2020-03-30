@@ -1,5 +1,7 @@
 package com.zhhl.marketauthority.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * Created by 陈泽宇 on 2019/12/10.
  * Describe: 单位基本信息

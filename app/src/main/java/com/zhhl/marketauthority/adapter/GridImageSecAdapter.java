@@ -10,19 +10,22 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zhhl.marketauthority.R;
+import com.zhhl.marketauthority.bean.MyMediaType;
+import com.zhhl.marketauthority.config.UrlConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GridImageSecAdapter extends
         RecyclerView.Adapter<GridImageSecAdapter.ViewHolder> {
-    public static final String TAG = "GridImageAdapter";
+    public static final String TAG = "GridImageSecAdapter";
     public static final int TYPE_CAMERA = 1;
     public static final int TYPE_PICTURE = 2;
     private LayoutInflater mInflater;
-    private List<String> list = new ArrayList<>();
+    private List<MyMediaType> list = new ArrayList<>();
     private int selectMax = 5;
     private boolean isAndroidQ;
+    private OnDelete onDelete;
     /**
      * 点击添加图片跳转
      */
@@ -32,9 +35,10 @@ public class GridImageSecAdapter extends
         void onAddPicClick();
     }
 
-    public GridImageSecAdapter(Context context, onAddPicClickListener mOnAddPicClickListener) {
+    public GridImageSecAdapter(Context context, onAddPicClickListener mOnAddPicClickListener, OnDelete onDelete) {
         this.mInflater = LayoutInflater.from(context);
         this.mOnAddPicClickListener = mOnAddPicClickListener;
+        this.onDelete = onDelete;
 //        this.isAndroidQ = SdkVersionUtils.checkedAndroid_Q();
     }
 
@@ -42,7 +46,7 @@ public class GridImageSecAdapter extends
         this.selectMax = selectMax;
     }
 
-    public void setList(List<String> list) {
+    public void setList(List<MyMediaType> list) {
         this.list = list;
     }
 
@@ -55,7 +59,7 @@ public class GridImageSecAdapter extends
         public ViewHolder(View view) {
             super(view);
             mImg = view.findViewById(R.id.fiv);
-//            mIvDel = view.findViewById(R.id.iv_del);
+            mIvDel = view.findViewById(R.id.iv_del);
 //            tvDuration = view.findViewById(R.id.tv_duration);
         }
     }
@@ -83,7 +87,7 @@ public class GridImageSecAdapter extends
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = mInflater.inflate(R.layout.girdview_image2,
+        View view = mInflater.inflate(R.layout.girdview_image,
                 viewGroup, false);
         final ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -103,22 +107,31 @@ public class GridImageSecAdapter extends
         if (getItemViewType(position) == TYPE_CAMERA) {
             viewHolder.mImg.setImageResource(R.drawable.ic_add_image);
             viewHolder.mImg.setOnClickListener(v -> mOnAddPicClickListener.onAddPicClick());
-//            viewHolder.mIvDel.setVisibility(View.INVISIBLE);
+            viewHolder.mIvDel.setVisibility(View.INVISIBLE);
         } else {
-//            viewHolder.mIvDel.setVisibility(View.VISIBLE);
-//            viewHolder.mIvDel.setOnClickListener(view -> {
-//                int index = viewHolder.getAdapterPosition();
-//                // 这里有时会返回-1造成数据下标越界,具体可参考getAdapterPosition()源码，
-//                // 通过源码分析应该是bindViewHolder()暂未绘制完成导致，知道原因的也可联系我~感谢
-//                if (index != RecyclerView.NO_POSITION && list.size() > index) {
-//                    list.remove(index);
-//                    notifyItemRemoved(index);
-//                    notifyItemRangeChanged(index, list.size());
-//                }
-//            });
-            Glide.with(viewHolder.itemView.getContext())
-                    .load(list.get(position))
-                    .into(viewHolder.mImg);
+            viewHolder.mIvDel.setVisibility(View.VISIBLE);
+            viewHolder.mIvDel.setOnClickListener(view -> {
+                int index = viewHolder.getAdapterPosition();
+                if (index != RecyclerView.NO_POSITION && list.size() > index) {
+                    list.remove(index);
+                    onDelete.onItemDelete(list.size());
+                    notifyItemRemoved(index);
+                    notifyItemRangeChanged(index, list.size());
+                }
+            });
+            String id = list.get(position).getId();
+            String type = list.get(position).getType();
+            String path = list.get(position).getPath();
+            System.out.println("输出获取的图片路径："+path);
+            if (path!=null && path.startsWith("/storage/")){
+                Glide.with(viewHolder.itemView.getContext())
+                        .load(path).into(viewHolder.mImg);;
+            }else{
+                Glide.with(viewHolder.itemView.getContext())
+                        .load(UrlConfig.PAHT_SHOW_IMG+"?mogondbId="+id+"&mediatype="+type)
+//                    .load(UrlConfig.PAHT_SHOW_IMG+"?mogondbId="+list.get(position).getPath()+"mediatype="+list.get(position).getType())
+                        .into(viewHolder.mImg);
+            }
             //itemView 的点击事件
             if (mItemClickListener != null) {
                 viewHolder.itemView.setOnClickListener(v -> {
@@ -134,7 +147,9 @@ public class GridImageSecAdapter extends
     public interface OnItemClickListener {
         void onItemClick(int position, View v);
     }
-
+    public interface OnDelete {
+        void onItemDelete(int mark);
+    }
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mItemClickListener = listener;
     }

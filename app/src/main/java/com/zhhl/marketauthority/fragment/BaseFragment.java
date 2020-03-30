@@ -12,7 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.rest.RequestQueue;
 import com.zhhl.marketauthority.R;
+import com.zhhl.marketauthority.nohttp.listener.HttpListener;
+import com.zhhl.marketauthority.nohttp.listener.HttpResponseListener;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -33,7 +37,15 @@ public abstract class BaseFragment extends SupportFragment {
     Unbinder unbinder;
     protected Context mContext;//上下文
     protected Activity mActivity;//界面
+    /**
+     * 用来标记取消。
+     */
+    private Object object = new Object();
 
+    /**
+     * 请求队列。
+     */
+    private RequestQueue mQueue;
     /**
      * 当视图被加载到Activity中时候调用
      *
@@ -52,7 +64,7 @@ public abstract class BaseFragment extends SupportFragment {
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         view = inflater.inflate(setContentView(), container, false);
         isInit = true;
-        title = view.findViewById(R.id.title);
+        title_text = view.findViewById(R.id.title_text);
         /**初始化的时候去加载数据**/
         isCanLoadData();
         unbinder = ButterKnife.bind(this, view);
@@ -180,10 +192,10 @@ public abstract class BaseFragment extends SupportFragment {
 
 
 
-    private TextView title;
+    private TextView title_text;
 
     protected void setTitleText(String titleStr) {
-        title.setText(titleStr);
+        title_text.setText(titleStr);
     }
 
 
@@ -194,6 +206,20 @@ public abstract class BaseFragment extends SupportFragment {
         fragment.onActivityResult(requestCode, resultCode, data);
     }
 
-
+    /**
+     * 发起请求。
+     *
+     * @param what      what.
+     * @param request   请求对象。
+     * @param callback  回调函数。
+     * @param canCancel 是否能被用户取消。
+     * @param isLoading 实现显示加载框。
+     * @param <T>       想请求到的数据类型。
+     */
+    public <T> void request(int what, Request<T> request, HttpListener<T> callback,
+                            boolean canCancel, boolean isLoading) {
+        request.setCancelSign(object);
+        mQueue.add(what, request, new HttpResponseListener<>(getActivity(), request, callback, canCancel, isLoading));
+    }
 
 }

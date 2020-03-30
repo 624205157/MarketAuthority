@@ -7,5 +7,5 @@ import com.zhhl.marketauthority.bean.Certification;
  * Describe:
  */
 public interface EditTextChangeListener {
-    public void haveChange(Certification certification,int position);
+     void haveChange(Certification certification,int position);
 }
