@@ -32,8 +32,8 @@
             android:id="@+id/backlog_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="26"
             android:textColor="@color/write"
+            android:text="0"
             android:textSize="30sp"
 
             />
@@ -102,7 +102,7 @@
             android:id="@+id/finish_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6"
+            android:text="0"
             android:textColor="@color/write_half"
             android:textSize="30sp"
             />

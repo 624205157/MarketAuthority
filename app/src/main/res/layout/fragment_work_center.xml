@@ -1,28 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F1F1F1"
-    android:fitsSystemWindows="true"
-    >
-    <LinearLayout
+    android:fitsSystemWindows="true">
+    <include layout="@layout/title_layout"/>
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/b_text_color_true"
-        android:orientation="vertical"
         >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/banner"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="20dp"
+            android:background="@drawable/background_corners_1"
+            android:padding="30dp"
+            >
+
+         <ImageView
+             android:id="@+id/scene"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             app:layout_constraintLeft_toLeftOf="parent"
+             app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintRight_toLeftOf="@+id/thirdparty"
+             android:src="@mipmap/appraisal"
+             />
+
+            <ImageView
+                android:id="@+id/thirdparty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/third"
+                app:layout_constraintLeft_toRightOf="@+id/scene"
+                app:layout_constraintRight_toLeftOf="@+id/iv_3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/iv_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/other_icon"
+                app:layout_constraintLeft_toRightOf="@+id/thirdparty"
+                app:layout_constraintRight_toLeftOf="@+id/iv_4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/other2_icon"
+                app:layout_constraintLeft_toRightOf="@+id/iv_3"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/scene"
+                app:layout_constraintRight_toRightOf="@id/scene"
+                app:layout_constraintTop_toBottomOf="@+id/scene"
+                android:layout_marginTop="5dp"
+                android:text="现场鉴定"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/thirdparty"
+                app:layout_constraintRight_toRightOf="@id/thirdparty"
+                app:layout_constraintTop_toBottomOf="@+id/thirdparty"
+                android:layout_marginTop="5dp"
+                android:text="第三方鉴定"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/iv_3"
+                app:layout_constraintRight_toRightOf="@id/iv_3"
+                app:layout_constraintTop_toBottomOf="@+id/iv_3"
+                android:layout_marginTop="5dp"
+                android:text="现场鉴定"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="@+id/iv_4"
+                app:layout_constraintRight_toRightOf="@id/iv_4"
+                app:layout_constraintTop_toBottomOf="@+id/iv_4"
+                android:layout_marginTop="5dp"
+                android:text="现场鉴定"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="20dp"
+        android:background="@drawable/background_corners_1"
+        android:padding="30dp"
+        >
+
+        <ImageView
+            android:id="@+id/iv_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/iv_6"
+            android:src="@mipmap/other3_icon"
+            />
+
+        <ImageView
+            android:id="@+id/iv_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/other4_icon"
+            app:layout_constraintLeft_toRightOf="@+id/iv_5"
+            app:layout_constraintRight_toLeftOf="@+id/iv_7"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/iv_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/other_icon"
+            app:layout_constraintLeft_toRightOf="@+id/iv_6"
+            app:layout_constraintRight_toLeftOf="@+id/iv_8"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/other2_icon"
+            app:layout_constraintLeft_toRightOf="@+id/iv_7"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="工作中心"
-            android:textColor="@color/write"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_5"
+            app:layout_constraintRight_toRightOf="@id/iv_5"
+            app:layout_constraintTop_toBottomOf="@+id/iv_5"
+            android:layout_marginTop="5dp"
+            android:text="现场鉴定"
+            android:textColor="#000000"
             android:textSize="20sp"
-            android:layout_gravity="center"
-            android:padding="5dp"
             />
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_6"
+            app:layout_constraintRight_toRightOf="@id/iv_6"
+            app:layout_constraintTop_toBottomOf="@+id/iv_6"
+            android:layout_marginTop="5dp"
+            android:text="现场鉴定"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_7"
+            app:layout_constraintRight_toRightOf="@id/iv_7"
+            app:layout_constraintTop_toBottomOf="@+id/iv_7"
+            android:layout_marginTop="5dp"
+            android:text="现场鉴定"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_8"
+            app:layout_constraintRight_toRightOf="@id/iv_8"
+            app:layout_constraintTop_toBottomOf="@+id/iv_8"
+            android:layout_marginTop="5dp"
+            android:text="现场鉴定"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            />
+
+        <ImageView
+            android:id="@+id/iv_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_5"
+            android:layout_marginTop="60dp"
+            app:layout_constraintRight_toLeftOf="@+id/iv_6"
+            android:src="@mipmap/other3_icon"
+            />
+
+        <ImageView
+            android:id="@+id/iv_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/other4_icon"
+            app:layout_constraintLeft_toRightOf="@+id/iv_5"
+            app:layout_constraintRight_toLeftOf="@+id/iv_7"
+            app:layout_constraintTop_toBottomOf="@+id/iv_5"
+            android:layout_marginTop="60dp"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_9"
+            app:layout_constraintRight_toRightOf="@id/iv_9"
+            app:layout_constraintTop_toBottomOf="@+id/iv_9"
+            android:layout_marginTop="5dp"
+            android:text="现场鉴定"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_10"
+            app:layout_constraintRight_toRightOf="@id/iv_10"
+            app:layout_constraintTop_toBottomOf="@+id/iv_10"
+            android:layout_marginTop="5dp"
+            android:text="现场鉴定"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            />
+
+
+    </android.support.constraint.ConstraintLayout>
 
 
 </LinearLayout>

@@ -18,33 +18,48 @@
     <application
         android:name=".CameraApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
     android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".TestActivity"/>
+        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".TestActivity"></activity>
         <activity android:name=".activity.BacklogActivity"/>
         <activity android:name=".activity.CertificationActivity"/>
         <activity android:name=".CameraActivity"/>
         <activity android:name=".activity.backlog.ApplyCompanyActivity"/>
         <activity android:name=".activity.backlog.ApplyUnitResouse"/>
-        <activity android:name=".activity.backlog.ManageStaff"/>
+        <activity android:name=".activity.backlog.ManageStaffActivity"/>
         <activity android:name=".activity.backlog.DepartmentsActivity"/>
         <activity android:name=".activity.backlog.InspectDeviceActivity"/>
         <activity android:name=".activity.backlog.ProduceActivity"/>
         <activity android:name=".activity.backlog.SubcontractActivity"/>
         <activity android:name=".activity.backlog.PramaryDeviceActivity"/>
         <activity android:name=".activity.backlog.SelfCheckDeviceActivity"/>
-        <activity android:name=".activity.backlog.ApplyCategoryActivity"/>
+        <activity android:name=".activity.backlog.ApplyAllowActivity"/>
+        <activity android:name=".activity.backlog.ApproveActivity"/>
+        <activity android:name=".activity.backloglist.ApplyAllowListActivity"/>
+        <activity android:name=".activity.backloglist.InspectDeviceListActivity"/>
+        <activity android:name=".activity.backloglist.ManageStaffListActivity"/>
+        <activity android:name=".activity.backloglist.PramaryDeviceListActivity"/>
+        <activity android:name=".activity.backloglist.ProduceListActivity"/>
+        <activity android:name=".activity.backloglist.SelfCheckDeviceListActivity"/>
+        <activity android:name=".activity.backloglist.SubcontractListActivity"/>
+        <activity android:name=".activity.backloglist.CertificationListActivity"/>
+        <activity android:name=".media.VideoPreviewActivity"></activity>
+        <activity android:name=".media.PicturePreviewActivity"></activity>
+        <activity android:name=".activity.ReviewActvity"></activity>
+        <activity android:name=".activity.LoginActivity"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.PreviewReport"></activity>
     </application>
 
 </manifest>

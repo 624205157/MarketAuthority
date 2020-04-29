@@ -30,6 +30,7 @@
             app:layout_constraintTop_toTopOf="parent"
             >
             <TableLayout
+                android:id="@+id/table_depart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:stretchColumns="*"
@@ -53,6 +54,7 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="部门"
+                        android:textSize="16dp"
                         android:textColor="@color/title_text"
                         android:gravity="center"/>
                     <TextView
@@ -61,6 +63,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:textSize="16dp"
                         android:text="部门负责人"
                         android:textColor="@color/title_text"
                         android:gravity="center"/>
@@ -70,266 +73,12 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:textSize="16dp"
                         android:text="人员数量"
                         android:textColor="@color/title_text"
                         android:gravity="center"/>
                 </TableRow>
-                <TableRow
-                    android:divider="@drawable/background_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:showDividers="beginning|middle|end">
-                    <TextView
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/title_text"
-                        android:text="工程部"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_name1"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:text="张三"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_count1"
-                        android:padding="8dp"
-                        android:textColor="@color/title_text"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="40人"
-                        android:gravity="center"/>
-                </TableRow>
-                <TableRow
-                    android:divider="@drawable/background_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:showDividers="beginning|middle|end">
-                    <TextView
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="维修部"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_name2"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="张三"
-                        android:textColor="@color/title_text"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_count2"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="20人"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                </TableRow>
-                <TableRow
-                    android:divider="@drawable/background_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:showDividers="beginning|middle|end">
-                    <TextView
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="设计部"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_name3"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:text="张三"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_count3"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="10人"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                </TableRow>
-                <TableRow
-                    android:divider="@drawable/background_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:showDividers="beginning|middle|end">
-                    <TextView
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="后勤部"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_name4"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:text="张三"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_count4"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="90人"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                </TableRow>
-                <TableRow
-                    android:divider="@drawable/background_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:showDividers="beginning|middle|end">
-                    <TextView
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:textColor="@color/title_text"
-                        android:text="综合部"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_name5"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="张三"
-                        android:textColor="@color/title_text"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_count5"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="20人"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                </TableRow>
-                <TableRow
-                    android:divider="@drawable/background_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:showDividers="beginning|middle|end">
-                    <TextView
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="客服部"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_name6"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="李四"
-                        android:textColor="@color/title_text"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_count6"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="17人"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/title_text"
-                        android:gravity="center"/>
-                </TableRow>
-                <TableRow
-                    android:divider="@drawable/background_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:showDividers="beginning|middle|end">
-                    <TextView
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="行政部"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/title_text"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_name7"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="王五"
-                        android:textColor="@color/title_text"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_count7"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="5人"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/title_text"
-                        android:gravity="center"/>
-                </TableRow>
-                <TableRow
-                    android:divider="@drawable/background_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:showDividers="beginning|middle|end">
-                    <TextView
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="财政部"
-                        android:textColor="@color/title_text"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_name8"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="张三"
-                        android:textColor="@color/title_text"
-                        android:gravity="center"/>
-                    <TextView
-                        android:id="@+id/tv_count8"
-                        android:padding="8dp"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="8人"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/title_text"
-                        android:gravity="center"/>
-                </TableRow>
+
             </TableLayout>
 
         </android.support.constraint.ConstraintLayout>
@@ -345,6 +94,7 @@
         android:layout_marginRight="15dp"
         android:background="@drawable/background_corners_1"
         android:padding="15dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
@@ -402,7 +152,6 @@
              />
         <TextView
             android:id="@+id/et_updatetime"
-            android:enabled="false"
             android:background="@drawable/background_arc_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -484,8 +233,6 @@
             >
             <RadioButton
                 android:id="@+id/regular"
-                android:enabled="false"
-                android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -499,7 +246,6 @@
 
             <RadioButton
                 android:id="@+id/unregular"
-                android:enabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"

@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toTopOf="@+id/head_portrait"
                 app:layout_constraintBottom_toTopOf="@+id/time_iv"
                 android:layout_marginLeft="10dp"
-                tools:text="22020301963645646512"
+                android:text="22020301963645646512"
                 android:textColor="@color/title_text"
                 android:textSize="16sp"
                 />
@@ -72,7 +72,7 @@
                 app:layout_constraintLeft_toRightOf="@+id/time_iv"
                 app:layout_constraintTop_toTopOf="@+id/time_iv"
                 app:layout_constraintBottom_toBottomOf="@+id/time_iv"
-                tools:text="2019-12-05  17:38:40"
+                android:text="2019-12-05  17:38:40"
                 android:layout_marginLeft="5dp"
                 android:textSize="14sp"
                 />
@@ -91,7 +91,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="张子枫"
+                android:text="张子枫"
                 app:layout_constraintTop_toTopOf="@+id/name_iv"
                 app:layout_constraintBottom_toBottomOf="@+id/name_iv"
                 app:layout_constraintLeft_toRightOf="@+id/name_iv"
@@ -104,7 +104,7 @@
                 android:id="@+id/phone_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="13215164854"
+                android:text="13215164854"
                 android:textColor="@color/title_text"
                 android:textSize="16sp"
                 app:layout_constraintRight_toRightOf="parent"

@@ -323,6 +323,8 @@
                             tools:text="吉林省长春市经济开发区兴隆综合保税区联检大楼405-6室"
                             android:textColor="@color/title_text"
                             android:textSize="16sp"
+                            android:lines="1"
+                            android:ellipsize="end"
                             android:layout_marginLeft="110dp"
                             />
 
@@ -393,7 +395,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="类别(组别):"
+                            android:text="项目:"
                             android:textSize="16sp"
                             android:textColor="@color/text_color_1"
                             android:layout_marginLeft="15dp"
@@ -495,7 +497,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="品种(型式):"
+                            android:text="参数:"
                             android:textSize="16sp"
                             android:textColor="@color/text_color_1"
                             android:layout_marginLeft="15dp"
@@ -505,7 +507,9 @@
                             android:id="@+id/type"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="品种"
+                            tools:text="参数"
+                            android:lines="1"
+                            android:ellipsize="end"
                             android:textColor="@color/title_text"
                             android:textSize="16sp"
                             android:layout_marginLeft="110dp"
@@ -667,7 +671,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="自行校验一起设备能力"
+                android:text="自行校验仪器设备能力"
                 android:textColor="@color/title_text"
                 android:layout_marginLeft="20dp"
                 />

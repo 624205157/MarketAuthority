@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_centerVertical="true"
+            android:id="@+id/rg_state"
             >
             <RadioButton
                 android:id="@+id/all"
@@ -30,6 +31,7 @@
                 android:button="@null"
                 android:background="@drawable/select_checked1"
                 android:text="全部"
+                android:checked="true"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:textSize="14sp"
@@ -121,12 +123,18 @@
     </RelativeLayout>
 
 
-
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="150dp"
+        >
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:listitem="@layout/item_finish_work_list"
         />
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
