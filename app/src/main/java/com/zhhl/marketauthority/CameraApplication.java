@@ -6,6 +6,7 @@ import android.content.Context;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.yanzhenjie.nohttp.InitializationConfig;
+import com.yanzhenjie.nohttp.Logger;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.OkHttpNetworkExecutor;
 import com.yanzhenjie.nohttp.cache.DBCacheStore;
@@ -34,12 +35,14 @@ public class CameraApplication extends Application {
     }
 
     private void initNet() {
+        Logger.setDebug(BuildConfig.DEBUG);// 开启NoHttp的调试模式, 配置后可看到请求过程、日志和错误信息。
+        Logger.setTag("MyNoHttp");// 设置NoHttp打印Log的tag。
         // 如果你需要自定义配置：
         NoHttp.initialize(InitializationConfig.newBuilder(this)
                 // 设置全局连接超时时间，单位毫秒，默认10s。
-                .connectionTimeout(20 * 1000)
+                .connectionTimeout(30 * 1000)
                 // 设置全局服务器响应超时时间，单位毫秒，默认10s。
-                .readTimeout(20 * 1000)
+                .readTimeout(30 * 1000)
                 // 配置缓存，默认保存数据库DBCacheStore，保存到SD卡使用DiskCacheStore。
                 .cacheStore(
                         new DBCacheStore(this).setEnable(false) // 如果不使用缓存，设置setEnable(false)禁用。

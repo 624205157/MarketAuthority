@@ -7,7 +7,7 @@
 
     <color name="b_text_color_true">#0B2F7D</color>
     <color name="b_text_color_false">#676767</color>
-
+    <color name="picture_color_transparent">#00000000</color>
     <color name="red">#F25542</color>
     <color name="write">#ffffff</color>
     <color name="write_half">#88ffffff</color>
@@ -19,4 +19,6 @@
     <color name="table_color_1">#CDCDCD</color>
     <color name="color_f6">#f6f6f6</color>
     <color name="color_yeallow">#E99B20</color>
+    <color name="picture_color">#20c064</color>
+    <color name="picture_color_black">#000000</color>
 </resources>

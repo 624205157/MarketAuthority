@@ -69,9 +69,11 @@ public class CameraActivity extends AppCompatActivity {
                 //获取视频路径
                 String path = FileUtil.saveBitmap("JCamera", firstFrame);
                 Log.i("CJT", "url = " + url + ", Bitmap = " + path);
+                System.out.println("获取到的视频还是图片路径："+url);
                 Intent intent = new Intent();
                 intent.putExtra("path", path);
-                setResult(101, intent);
+                intent.putExtra("video",url);
+                setResult(102, intent);
                 finish();
             }
         });

@@ -1,5 +1,8 @@
 package com.zhhl.marketauthority.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by 陈泽宇 on 2019/12/10.
  * Describe:申请许可

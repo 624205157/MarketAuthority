@@ -1,19 +1,31 @@
 package com.zhhl.marketauthority.fragment.work;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.yanzhenjie.nohttp.NoHttp;
+import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.rest.Response;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BacklogActivity;
 import com.zhhl.marketauthority.adapter.BacklogAdapter;
-import com.zhhl.marketauthority.bean.Backlog;
+import com.zhhl.marketauthority.bean.BacklogFraBean;
+import com.zhhl.marketauthority.config.UrlConfig;
 import com.zhhl.marketauthority.fragment.BaseFragment;
+import com.zhhl.marketauthority.listener.DealCount;
+import com.zhhl.marketauthority.nohttp.NohttpClient;
+import com.zhhl.marketauthority.nohttp.listener.HttpListener;
+import com.zhhl.marketauthority.util.GsonUtil;
 
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 
@@ -24,10 +36,12 @@ import java.util.List;
 public class BacklogFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
-
+    private SwipeRefreshLayout swipeLayout;
     private BacklogAdapter mAdapter;
-    private List<Backlog> mData = new ArrayList<>();
-
+    private List<BacklogFraBean.ObjBean.VarListBean> mData = new ArrayList<>();
+    private int row = 1;
+    private int page = 10;
+    private DealCount dealCount;
     @Override
     protected int setContentView() {
         return R.layout.fragment_backlog;
@@ -37,69 +51,115 @@ public class BacklogFragment extends BaseFragment {
     protected void lazyLoad() {
 
         recyclerView = findViewById(R.id.recyclerView);
+        swipeLayout = findViewById(R.id.swipeLayout);
+        swipeLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mAdapter = new BacklogAdapter(mData);
         mAdapter.openLoadAnimation();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
-
+        swipeLayout.setRefreshing(true);
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                loadMore();
+            }
+        });
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
                 Intent intent = new Intent(mActivity, BacklogActivity.class);
+                intent.putExtra("N_L_ID",mAdapter.getItem(position).getN_L_ID().toString());
+                intent.putExtra("N_B_ID",mAdapter.getItem(position).getN_B_ID().toString());
                 startActivity(intent);
             }
         });
-
-        getData();
+        initRefreshLayout();
+        refresh();
     }
 
-    private void getData(){
-        Backlog backlog1 = new Backlog();
-        backlog1.setYear("2019");
-        backlog1.setMonth("09");
-        backlog1.setDay("01");
-        backlog1.setCompany("长春市宏日新能源有限责任公司");
-        backlog1.setTitle("特种设备（不含电梯）制作单位许可");
-        backlog1.setState("1");
-        mData.add(backlog1);
+    @Override
+    public void onStart() {
+        super.onStart();
+            refresh();
+    }
 
-        Backlog backlog2 = new Backlog();
-        backlog2.setYear("2019");
-        backlog2.setMonth("09");
-        backlog2.setDay("02");
-        backlog2.setCompany("长春市宏日新能源有限责任公司");
-        backlog2.setTitle("特种设备（不含电梯）制作单位许可");
-        backlog2.setState("0");
-        mData.add(backlog2);
 
-        Backlog backlog3 = new Backlog();
-        backlog3.setYear("2019");
-        backlog3.setMonth("09");
-        backlog3.setDay("03");
-        backlog3.setCompany("长春市宏日新能源有限责任公司");
-        backlog3.setTitle("特种设备（不含电梯）制作单位许可");
-        backlog3.setState("1");
-        mData.add(backlog3);
+    private void initRefreshLayout() {
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
+    }
 
-        Backlog backlog4 = new Backlog();
-        backlog4.setYear("2019");
-        backlog4.setMonth("09");
-        backlog4.setDay("05");
-        backlog4.setCompany("长春市宏日新能源有限责任公司");
-        backlog4.setTitle("特种设备（不含电梯）制作单位许可");
-        backlog4.setState("0");
-        mData.add(backlog4);
+    private void refresh() {
+        mAdapter.setEnableLoadMore(false);//这里的作用是防止下拉刷新的时候还可以上拉加载
+        NohttpClient nohttpClient = new NohttpClient(getActivity());
+        Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_BACKLOG, RequestMethod.POST);
+//        request.add("row",1);
+//        request.add("page",10);
+        request.add("SXLX","1");
+        nohttpClient.request(0,request,httpListener,true,false);
+    }
+    private void loadMore() {
+        NohttpClient nohttpClient = new NohttpClient(getActivity());
+        Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_BACKLOG, RequestMethod.POST);
+//        request.add("row",row);
+//        request.add("page",page);
+        request.add("SXLX","1");
+        nohttpClient.request(1,request,httpListener,true,false);
 
-        Backlog backlog5 = new Backlog();
-        backlog5.setYear("2019");
-        backlog5.setMonth("09");
-        backlog5.setDay("09");
-        backlog5.setCompany("长春市宏日新能源有限责任公司");
-        backlog5.setTitle("特种设备（不含电梯）制作单位许可");
-        backlog5.setState("0");
-        mData.add(backlog5);
+    }
+    private HttpListener<String> httpListener = new HttpListener<String>() {
+        @Override
+        public void onSucceed(int what, Response<String> response) {
+            System.out.println("待办事项："+response.get());
+            BacklogFraBean produce = GsonUtil.GsonToBean(response.get(), BacklogFraBean.class);
+            List<BacklogFraBean.ObjBean.VarListBean> resBeans = produce.getObj().getVarList();
 
-        mAdapter.notifyDataSetChanged();
+            if (produce!=null && produce.getCode().equals("200")){
+                if (dealCount!=null){
+                    dealCount.dealCount(produce.getObj().getDaiban(),produce.getObj().getYibanli());
+                    System.out.println("待办事项数据条数："+dealCount);
+                }
+                if (what==0){
+                    setData(true,resBeans);
+                    mAdapter.setEnableLoadMore(true);
+                    swipeLayout.setRefreshing(false);
+                }else{
+                    setData(false,resBeans);
+                }
+                mAdapter.notifyDataSetChanged();
+            }
+        }
 
+        @Override
+        public void onFailed(int what, Response<String> response) {
+            mAdapter.setEnableLoadMore(true);
+            swipeLayout.setRefreshing(false);
+        }
+    };
+    private void setData(boolean isRefresh, List data) {
+        row++;
+        final int size = data == null ? 0 : data.size();
+        if (isRefresh) {
+            mAdapter.setNewData(data);
+        } else {
+            if (size > 0) {
+                mAdapter.addData(data);
+            }
+        }
+        if (size < page) {
+            //第一页如果不够一页就不显示没有更多数据布局
+            mAdapter.loadMoreEnd(isRefresh);
+            //MyToast.makeText(AgencyActivity.this, "no more data", MyToast.LENGTH_SHORT).show();
+        } else {
+            mAdapter.loadMoreComplete();
+        }
+    }
+    public void setDealCount(DealCount dealCount){
+        this.dealCount = dealCount;
     }
 }

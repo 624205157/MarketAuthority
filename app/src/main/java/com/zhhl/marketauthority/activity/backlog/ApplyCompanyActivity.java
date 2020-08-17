@@ -1,5 +1,7 @@
 package com.zhhl.marketauthority.activity.backlog;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.EditText;
@@ -9,11 +11,29 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.yanzhenjie.nohttp.NoHttp;
+import com.yanzhenjie.nohttp.RequestMethod;
+import com.yanzhenjie.nohttp.rest.Request;
+import com.yanzhenjie.nohttp.rest.Response;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BaseActivity;
+import com.zhhl.marketauthority.bean.ApplyCompanyBean;
+import com.zhhl.marketauthority.config.UrlConfig;
+import com.zhhl.marketauthority.nohttp.listener.HttpListener;
+import com.zhhl.marketauthority.util.GsonUtil;
+import com.zhhl.marketauthority.util.ToastUtils;
 import com.zhhl.marketauthority.util.UntilsTime;
+import com.zhhl.marketauthority.view.dialog.RemindDialog;
+
+import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,6 +54,8 @@ public class ApplyCompanyActivity extends BaseActivity {
     EditText et_funds;//注册资金
     @BindView(R.id.et_address)
     EditText et_address;//单位地址
+    @BindView(R.id.et_make_address)
+    EditText et_make_address;//制造地址
     @BindView(R.id.et_industry)
     EditText et_industry;//所属行业
     @BindView(R.id.et_code)
@@ -54,6 +76,8 @@ public class ApplyCompanyActivity extends BaseActivity {
     EditText et_proxy_phone;//代办人电话
     private ImageView back;
     private ImageView change;
+    private Context mContext = ApplyCompanyActivity.this;
+    ApplyCompanyBean backlogBean;
     @Override
     protected int setContentView() {
         return R.layout.activity_applycompany;
@@ -71,10 +95,54 @@ public class ApplyCompanyActivity extends BaseActivity {
 //                mAdapter.setToChange(true);
             }
         });
-        setData();
+        getData();
     }
+    private void getData() {
+        Intent intent = getIntent();
+        //Constants.URL_NOHTTP_POST
+        Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_COMMON, RequestMethod.POST);
+        request.add("N_L_ID",intent.getStringExtra("N_L_ID"));
+        request.add("N_B_ID",intent.getStringExtra("N_B_ID"));
+        request.add("N_TYPE","1");
+        request(0,request,httpListener,true,true);
 
-    @OnClick({R.id.et_createtime})
+    }
+    private HttpListener<String> httpListener = new HttpListener<String>() {
+        @Override
+        public void onSucceed(int what, Response<String> response) {
+            if (what==0){
+             backlogBean = GsonUtil.GsonToBean(response.get(), ApplyCompanyBean.class);
+            if (backlogBean!=null){
+                setData();
+            }
+            }else if (what==1){
+                JsonElement jsonElement = new JsonParser().parse(response.get());
+                String code = jsonElement.getAsJsonObject().get("code").getAsString();
+                String msg = jsonElement.getAsJsonObject().get("msg").getAsString();
+                RemindDialog remindDialog = new RemindDialog(mContext,R.style.MyDialog);
+                remindDialog.setMessage(msg);
+                remindDialog.setYesOnclickListener("确定", new RemindDialog.onYesOnclickListener() {
+                    @Override
+                    public void onYesClick() {
+                        ApplyCompanyActivity.this.finish();
+                    }
+                });
+                remindDialog.setNoOnclickListener("取消", new RemindDialog.onNoOnclickListener() {
+                    @Override
+                    public void onNoClick() {
+                        remindDialog.dismiss();
+                    }
+                });
+                remindDialog.show();
+            }
+        }
+
+        @Override
+        public void onFailed(int what, Response<String> response) {
+            ToastUtils.show(mContext,"请求失败");
+        }
+    };
+    @OnClick({R.id.et_createtime,R.id.submit})
     public void onViewClick(View view){
         switch (view.getId()) {
             case R.id.et_createtime:
@@ -89,73 +157,79 @@ public class ApplyCompanyActivity extends BaseActivity {
                 }).setType(new boolean[]{true, true, true, true, true, true}).build();
                 pvTime.show();
                 break;
+            case R.id.submit:
+                uploadData();
+                break;
         }
 
     }
 
+    private void uploadData() {
+        submit.setVisibility(View.INVISIBLE);
+        change.setVisibility(View.VISIBLE);
+        String make_address = et_make_address.getText().toString().trim();
+        String n_c_id = backlogBean.getObj().getRes().getN_C_ID();
+        Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_UPLOAD_DATA, RequestMethod.POST);
+        Map<String,Object> map = new HashMap<>();
+        map.put("id",n_c_id);//主键表ID
+        map.put("tjlx","1");//提交类型
+//        map.put("PSZT","1");//评审状态
+//        map.put("PSZT","1");//评审时间取服务器系统时间
+        map.put("v_make_adress",make_address);//制造地址
+        request.add(map);
+        request(1,request,httpListener,true,true);
+
+
+    }
+
+    private HttpListener<JSONObject> objectListener = new HttpListener<JSONObject>() {
+        @Override
+        public void onSucceed(int what, Response<JSONObject> response) {
+
+            JSONObject jsonObject = response.get();
+            System.out.println("请求结果："+jsonObject.toString());
+
+        }
+
+        @Override
+        public void onFailed(int what, Response<JSONObject> response) {
+
+        }
+    };
+    //设置修改状态背景
     private void changeSate() {
         change.setVisibility(View.INVISIBLE);
         submit.setVisibility(View.VISIBLE);
-        et_unit.setEnabled(true);
-        et_legal.setEnabled(true);
-        et_createtime.setEnabled(true);
-        et_assets.setEnabled(true);
-        et_funds.setEnabled(true);
-        et_address.setEnabled(true);
-        et_industry.setFocusable(true);
-        et_industry.setCursorVisible(true);
-        et_industry.setEnabled(true);
-        et_industry.setFocusableInTouchMode(true);
-        et_code.setEnabled(true);
-        et_ratify.setEnabled(true);
-        et_type.setEnabled(true);
-        et_phone.setEnabled(true);
-        et_cardNum.setEnabled(true);
-        et_proxy_cardNum.setEnabled(true);
-        et_proxy_name.setEnabled(true);
-        et_proxy_phone.setEnabled(true);
-        et_unit.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_legal.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_createtime.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_assets.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_funds.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_address.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_industry.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_code.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_ratify.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_type.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_phone.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_cardNum.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_proxy_cardNum.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_proxy_name.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
-        et_proxy_phone.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
+        et_make_address.setEnabled(true);
+        et_make_address.setBackground(ContextCompat.getDrawable(ApplyCompanyActivity.this,R.drawable.background_arc_3));
     }
 
+    //设置回显数据
     private void setData() {
-        et_unit.setText("长春市宏日新能源有限责任公司");
-        et_legal.setText("洪浩");
-        et_createtime.setText("2010年02月03日");
-        et_assets.setText("8000万元");
-        et_funds.setText("1994.36 万元");
-        et_address.setText("吉林省长春市经济开发区兴隆综合保税区联检大楼405-6室");
-        et_industry.setText("信息安全技术领域内的技术开发，电子计算机及计算机网络"+
-                "科技技术开发、技术服务，经销计算机软件硬件及辅助设备" +
-                "、文化用品、办公用品、机械设备，建筑装饰工程施工，货" +
-                "物及技术进出口，计算机系统集成服务，建筑智能化工程、" +
-                "网络综合布线工程，信息安全工程、安防监控工程设计、施" +
-                "工（依法须经批准的项目，经相关部门批准后方可开展经营" +
-                "活动）");
-        et_code.setText("91220101MA14DLR10L");
-        et_ratify.setText("220123");
-        et_type.setText("内资企业");
-        et_phone.setText("13500889232");
-        et_cardNum.setText("220203196510290334");
-        et_proxy_cardNum.setText("220203196810090354");
-        et_proxy_name.setText("张凤阁");
-        et_proxy_phone.setText("13800881202");
+
+        ApplyCompanyBean.ObjBean.ResBean bean = backlogBean.getObj().getRes();
+        et_unit.setText(bean.getV_C_NAME());
+        et_legal.setText(bean.getV_LEGAL_PERSON());
+        et_createtime.setText(bean.getD_CREATE_DATE());
+        et_assets.setText(bean.getFIXED_ASSETS());
+        et_funds.setText(bean.getREGISTERED_CAPITAL());
+        et_address.setText(bean.getV_ADDRESS());
+        et_make_address.setText(bean.getV_MAKE_ADRESS());
+        et_industry.setText(bean.getV_TRADE());
+        et_code.setText(bean.getV_CREDIT_CODE());
+        et_ratify.setText(bean.getV_APPROVE());
+        if (bean.getV_CONPANY_TYPE().equals("1")){
+            et_type.setText("内资企业");
+        }else{
+            et_type.setText("内资企业");
+        }
+        et_phone.setText(bean.getV_PERSON_PHONE());
+        et_cardNum.setText(bean.getV_FR_SFZ());//法人身份证
+        et_proxy_cardNum.setText(bean.getV_DBR_SFZ());//代办人身份证
+        et_proxy_name.setText(bean.getV_DBR());//代办人姓名
+        et_proxy_phone.setText(bean.getV_DBR_TEL());//代办人电话
 
     }
-
     protected void addBack() {
         back = findViewById(R.id.back);
         back.setVisibility(View.VISIBLE);

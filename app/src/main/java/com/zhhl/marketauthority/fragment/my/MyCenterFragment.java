@@ -1,6 +1,7 @@
 package com.zhhl.marketauthority.fragment.my;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,13 @@ public class MyCenterFragment extends BaseFragment {
     }
 
     @Override
-    protected void lazyLoad() {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
+    @Override
+    protected void lazyLoad() {
+        setTitleText("个人中心");
     }
 
 

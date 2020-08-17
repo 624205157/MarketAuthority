@@ -1,6 +1,5 @@
 package com.zhhl.marketauthority.fragment.work;
 
-import android.graphics.Color;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -8,6 +7,8 @@ import android.widget.TextView;
 
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.fragment.BaseFragment;
+import com.zhhl.marketauthority.listener.DealCount;
+import com.zhhl.marketauthority.listener.DoneCount;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,13 +56,25 @@ public class WorkFragment extends BaseFragment implements View.OnClickListener {
         finish.setOnClickListener(this);
 
         fragments = new ArrayList<>();
-        fragments.add(new BacklogRootFragment());
-        fragments.add(new FinishRootFragment());
-
+//        fragments.add(new BacklogRootFragment());
+//        fragments.add(new FinishRootFragment());
+        BacklogFragment backlogFragment = new BacklogFragment();
+        FinishFragment finishFragment = new FinishFragment();
+        fragments.add(backlogFragment);
+        fragments.add(finishFragment);
         loadMultipleRootFragment(R.id.frag, 0,
                 fragments.get(0),
                 fragments.get(1)
         );
+        backlogFragment.setDealCount(new DealCount() {
+            @Override
+            public void dealCount(String dealcount,String donecount) {
+                System.out.println("WorkFragment：数据条数"+dealcount);
+                System.out.println("WorkFragment：数据条数"+donecount);
+                backlogNum.setText(dealcount);
+                finishNum.setText(donecount);
+            }
+        });
     }
 
 
@@ -95,4 +108,6 @@ public class WorkFragment extends BaseFragment implements View.OnClickListener {
                 break;
         }
     }
+
+
 }
