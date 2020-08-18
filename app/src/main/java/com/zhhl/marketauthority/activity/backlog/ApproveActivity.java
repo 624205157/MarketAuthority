@@ -53,7 +53,7 @@ public class ApproveActivity extends BaseActivity {
     @Override
     protected void onCreate() {
         addBack();
-        setTitleText("申请许可类别");
+        setTitleText("相关认证");
         change = addChange();
         change.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +126,7 @@ public class ApproveActivity extends BaseActivity {
         map.put("tjlx","3");//提交类型
         map.put("v_cc_item",et_approve_item.getText());//认证项目
         map.put("v_cc_organization",et_approve_agency.getText());//代表作品
-        map.put("v_year",et_approve_agency.getText());//代表作品
+        map.put("v_year",et_approve_exp_date.getText());//代表作品
         request.add(map);
         request(1,request,httpListener,true,true);
     }

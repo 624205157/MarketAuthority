@@ -13,14 +13,14 @@ public class UrlConfig {
 //    9管理、专业、作业人员情况
 //    10各部门人员组成
 //    11  申请单位资源
-    public static final String HOST = "http://124.234.143.68:";
-    public static final String PORT = "7034/FH_O";
-//    public static final String HOST = "http://192.168.0.112:";
-//    public static final String PORT = "8080/FH_O";
+//    public static final String HOST = "http://124.234.143.68:";
+//    public static final String PORT = "7036/FH_O";
+    public static final String HOST = "http://192.168.1.108:";
+    public static final String PORT = "8080";
     public static final String  PATH_COMMON = HOST+PORT+"/authenticate/ydlist.do";
     public static final String  PATH_BACKLOG = HOST+PORT+"/transaction/ydlist";
     //上传数据
-    public static final String  PATH_UPLOAD_DATA = HOST+PORT+"/authenticate/scpstj";
+        public static final String  PATH_UPLOAD_DATA = HOST+PORT+"/authenticate/scpstj";
     public static final String  PATH_UPLOAD_IMAGE = HOST+PORT+"/apply_data/uploadImg.do";
     public static final String  PATH_SHOW_IMG = HOST+PORT+"/apply_data/download.do";
     //待办提交

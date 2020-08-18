@@ -47,7 +47,7 @@ public class ProduceListActivity extends BaseActivity {
         addBack();
         setTitleText("试生产(制造)情况-数据");
         init();
-        getData();
+//        getData();
     }
 
     private void init() {
@@ -109,5 +109,12 @@ public class ProduceListActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mData.clear();
+        getData();
     }
 }

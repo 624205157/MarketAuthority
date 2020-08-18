@@ -66,10 +66,10 @@ public class VideoPreviewActivity extends BaseActivity implements
 
     protected void initWidgets() {
 //        super.initWidgets();
-//        video_path = getIntent().getStringExtra("video");
+        video_path = getIntent().getStringExtra("path");
 //        System.out.println("视频路径"+video_path);
-        http://124.234.143.68:7034/FH_O/apply_data/download.do
-        video_path = "/storage/emulated/0/JCamera/video_1579160545710.mp4";
+//        http://124.234.143.68:7034/FH_O/apply_data/download.do
+//        video_path = "/storage/emulated/0/JCamera/video_1579160545710.mp4";
         picture_left_back = findViewById(R.id.picture_left_back);
         mVideoView = findViewById(R.id.video_view);
         tvConfirm = findViewById(R.id.tv_confirm);
@@ -91,8 +91,8 @@ public class VideoPreviewActivity extends BaseActivity implements
     public void onStart() {
         // Play Video
         mVideoView.setVideoPath(TextUtils.isEmpty(video_path) ? "" : video_path);
-        Uri uri = Uri.parse("http://192.168.0.101:8080/apply_data/download.do?mogondbId=84ddf39bcd6f473ca91052c662b2b9e4&mediatype=1");
-        mVideoView.setVideoURI(uri);
+//        Uri uri = Uri.parse("http://192.168.0.101:8080/apply_data/download.do?mogondbId=84ddf39bcd6f473ca91052c662b2b9e4&mediatype=1");
+//        mVideoView.setVideoURI(uri);
         mVideoView.start();
         super.onStart();
     }

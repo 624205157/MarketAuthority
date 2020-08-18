@@ -212,7 +212,9 @@ public class ReviewActvity extends BaseActivity {
         }
         if (resultCode == 102) {
             Log.i("CJT", "video");
-            String path = data.getStringExtra("path");
+//            String path = data.getStringExtra("path");
+            String path = data.getStringExtra("video");
+
             myMediaType.setType("1");
             myMediaType.setPath(path);
             uploadMedia(path,"1");

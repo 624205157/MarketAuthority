@@ -48,7 +48,7 @@ public class CertificationListActivity extends BaseActivity {
         addBack();
         setTitleText("相关认证-列表");
         init();
-        getData();
+//        getData();
     }
 
     private void init() {
@@ -110,5 +110,12 @@ public class CertificationListActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mData.clear();
+        getData();
     }
 }

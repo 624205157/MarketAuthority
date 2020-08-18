@@ -46,7 +46,7 @@ public class ApplyAllowListActivity extends BaseActivity {
         addBack();
         setTitleText("申请许可类别-列表");
         init();
-        getData();
+//        getData();
     }
 
     private void init() {
@@ -108,5 +108,12 @@ public class ApplyAllowListActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mData.clear();
+        getData();
     }
 }
