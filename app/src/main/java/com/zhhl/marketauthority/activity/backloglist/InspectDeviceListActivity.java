@@ -47,9 +47,9 @@ public class InspectDeviceListActivity extends BaseActivity {
     @Override
     protected void onCreate() {
         addBack();
-        setTitleText("自行校验仪器设备能力-列表");
+        setTitleText("主要检验与试验仪器设备状况-列表");
         init();
-        getData();
+//        getData();
     }
 
     private void init() {
@@ -112,5 +112,12 @@ public class InspectDeviceListActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mData.clear();
+        getData();
     }
 }

@@ -151,6 +151,7 @@ public class DepartmentsActivity extends BaseActivity {
                 setData(resBean);
             }else if(what==1){
                 ToastUtils.show(mContext,"修改成功");
+                finish();
             }
 
         }

@@ -113,6 +113,7 @@ public class ProduceActivity  extends BaseActivity {
                 System.out.println("试生产制造，上传数据："+response.get());
             }else if(what ==1){
                 ToastUtils.show(mContext,"修改成功");
+                finish();
             }
         }
 

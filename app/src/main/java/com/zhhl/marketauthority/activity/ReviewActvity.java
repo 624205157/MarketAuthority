@@ -108,10 +108,10 @@ public class ReviewActvity extends BaseActivity {
                         ps_state = "1";
                         break;
                     case R.id.type_2:
-                        ps_state = "2";
+                        ps_state = "3";
                         break;
                     case R.id.type_3:
-                        ps_state = "3";
+                        ps_state = "2";
                         break;
                 }
             }

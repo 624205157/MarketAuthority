@@ -49,7 +49,7 @@ public class ManageStaffListActivity  extends BaseActivity {
         addBack();
         setTitleText("管理、专业、作业人员情况");
         init();
-        getData();
+//        getData();
     }
 
     private void init() {
@@ -112,5 +112,12 @@ public class ManageStaffListActivity  extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mData.clear();
+        getData();
     }
 }

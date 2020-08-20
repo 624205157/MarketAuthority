@@ -48,7 +48,7 @@ public class SubcontractListActivity extends BaseActivity {
         addBack();
         setTitleText("分包、外协情况");
         init();
-        getData();
+//        getData();
     }
 
     private void init() {
@@ -111,5 +111,12 @@ public class SubcontractListActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mData.clear();
+        getData();
     }
 }

@@ -164,6 +164,7 @@ public class PramaryDeviceActivity extends BaseActivity {
         public void onSucceed(int what, Response<String> response) {
             if (what ==1){
                 ToastUtils.show(mContext,"请求成功");
+                finish();
             }
         }
 

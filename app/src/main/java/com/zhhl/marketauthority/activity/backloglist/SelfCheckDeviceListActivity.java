@@ -49,7 +49,7 @@ public class SelfCheckDeviceListActivity extends BaseActivity {
         addBack();
         setTitleText("自行校验仪器设备能力-列表");
         init();
-        getData();
+//        getData();
     }
 
     private void init() {
@@ -112,5 +112,12 @@ public class SelfCheckDeviceListActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mData.clear();
+        getData();
     }
 }

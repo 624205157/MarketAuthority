@@ -140,6 +140,7 @@ public class ApplyUnitResouse extends BaseActivity {
                 }
             }else if(what==1){
                 ToastUtils.show(mContext,"修改成功");
+                finish();
             }
 
         }

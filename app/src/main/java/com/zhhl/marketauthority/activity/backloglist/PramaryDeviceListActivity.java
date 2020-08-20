@@ -47,7 +47,7 @@ public class PramaryDeviceListActivity extends BaseActivity {
         addBack();
         setTitleText("主要生产设备情况-列表");
         init();
-        getData();
+//        getData();
     }
 
     private void init() {
@@ -110,5 +110,12 @@ public class PramaryDeviceListActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mData.clear();
+        getData();
     }
 }

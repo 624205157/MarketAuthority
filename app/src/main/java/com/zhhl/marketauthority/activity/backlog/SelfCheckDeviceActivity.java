@@ -164,6 +164,7 @@ public class SelfCheckDeviceActivity extends BaseActivity {
         public void onSucceed(int what, Response<String> response) {
             if (what==1){
                 ToastUtils.show(mContext,"修改成功");
+                finish();
             }
         }
 

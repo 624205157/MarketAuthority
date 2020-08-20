@@ -124,6 +124,7 @@ public class
                 }
             }else if(what==1){//上传提交数据与修改数据
                 ToastUtils.show(mContext,"修改成功");
+                finish();
             }
 
         }
