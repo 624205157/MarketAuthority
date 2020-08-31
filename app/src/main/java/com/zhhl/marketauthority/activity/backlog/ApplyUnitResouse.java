@@ -186,6 +186,12 @@ public class ApplyUnitResouse extends BaseActivity {
         String output = et_output.getText().toString();//年产值(万元)
         String updatetime = et_updatetime.getText().toString();
         String idea = et_idea.getText().toString();
+
+        if (TextUtils.isEmpty(updatetime)){
+            showToast("请选择评审时间");
+            return;
+        }
+
         Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_UPLOAD_DATA, RequestMethod.POST);
         Map<String,Object> map = new HashMap<>();
         map.put("id",resBean.getN_R_ID());

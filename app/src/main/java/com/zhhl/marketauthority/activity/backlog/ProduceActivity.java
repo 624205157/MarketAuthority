@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -144,6 +145,9 @@ public class ProduceActivity  extends BaseActivity {
     }
 
     private void   uploadData() {
+
+
+
         String name = et_name_product.getText().toString();//产品名称
         String device_type =  et_device_type.getText().toString();//设备品种/类别
         String param_level =  et_param_level.getText().toString();//参数级别
@@ -152,6 +156,12 @@ public class ProduceActivity  extends BaseActivity {
         String idea = et_idea.getText().toString();//评审意见
         submit.setVisibility(View.INVISIBLE);
         change.setVisibility(View.VISIBLE);
+
+        if (TextUtils.isEmpty(update_time)){
+            showToast("请选择评审时间");
+            return;
+        }
+
         Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_UPLOAD_DATA, RequestMethod.POST);
         Map<String,Object> map = new HashMap<>();
         map.put("id",resBean.getN_P_ID());//主键表ID

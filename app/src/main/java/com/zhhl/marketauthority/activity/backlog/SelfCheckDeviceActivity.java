@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -143,6 +144,15 @@ public class SelfCheckDeviceActivity extends BaseActivity {
         String updatetime = et_updatetime.getText().toString();
         String use_date = et_use_data.getText().toString();
         String idea =  et_idea.getText().toString();//评审意见
+
+        if (TextUtils.isEmpty(updatetime)){
+            showToast("请选择评审时间");
+            return;
+        }
+         if (TextUtils.isEmpty(use_date)){
+            showToast("请选择投用日期");
+            return;
+        }
         Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_UPLOAD_DATA, RequestMethod.POST);
         Map<String,Object> map = new HashMap<>();
         map.put("id",resBean.getN_V_ID());

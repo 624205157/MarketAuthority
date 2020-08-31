@@ -15,7 +15,7 @@ public class UrlConfig {
 //    11  申请单位资源
 //    public static final String HOST = "http://124.234.143.68:";
 //    public static final String PORT = "7036/FH_O";
-    public static final String HOST = "http://192.168.1.112:";
+    public static final String HOST = "http://192.168.1.114:";
     public static final String PORT = "8080";
     public static final String  PATH_COMMON = HOST+PORT+"/authenticate/ydlist.do";
     public static final String  PATH_BACKLOG = HOST+PORT+"/transaction/ydlist";

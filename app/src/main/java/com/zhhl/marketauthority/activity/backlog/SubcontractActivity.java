@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -161,6 +162,12 @@ public class
         String type = et_type.getText().toString();
         String sub_program = et_sub_program.getText().toString();
         String update_time =  et_updatetime.getText().toString();//评审时间
+
+        if (TextUtils.isEmpty(update_time)){
+            showToast("请选择评审时间");
+            return;
+        }
+
         String idea = et_idea.getText().toString();//评审意见
         Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_UPLOAD_DATA, RequestMethod.POST);
         Map<String,Object> map = new HashMap<>();

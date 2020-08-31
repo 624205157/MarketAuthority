@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -201,6 +202,10 @@ public class DepartmentsActivity extends BaseActivity {
     private void uploadData() {
         String update_time =  et_updatetime.getText().toString();//评审时间
         String idea = et_idea.getText().toString();//评审意见
+        if (TextUtils.isEmpty(update_time)){
+            showToast("请选择评审时间");
+            return;
+        }
         Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_UPLOAD_DATA, RequestMethod.POST);
         Map<String,Object> map = new HashMap<>();
         map.put("id",resBean.getN_D_ID());

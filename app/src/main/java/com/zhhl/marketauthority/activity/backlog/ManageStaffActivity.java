@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -143,6 +144,12 @@ public class ManageStaffActivity extends BaseActivity {
         String work_years = et_work_years.getText().toString();//从事专业年限
         String profession_card = et_profession_card.getText().toString();//持专业证
         String updatetime = et_updatetime.getText().toString();//评审时间
+
+        if (TextUtils.isEmpty(updatetime)){
+            showToast("请选择评审时间");
+            return;
+        }
+
         String idea = et_idea.getText().toString();//评审意见
         submit.setVisibility(View.INVISIBLE);
         change.setVisibility(View.VISIBLE);
