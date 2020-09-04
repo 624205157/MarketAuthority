@@ -1,6 +1,7 @@
 package com.zhhl.marketauthority.activity;
 
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -207,9 +208,18 @@ public class BacklogActivity extends BaseActivity {
                 intent.setClass(mContext,ReviewActvity.class);
                 intent.putExtra("N_L_ID",N_L_ID);
                 intent.putExtra("N_B_ID",N_B_ID);
-                startActivity(intent);
+                startActivityForResult(intent,10);
                 overridePendingTransition(R.anim.dialog_fr_in,R.anim.dialog_fr_out_hide);
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==10&&resultCode==10){
+            finish();
+        }
+
     }
 }

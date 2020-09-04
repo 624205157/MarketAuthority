@@ -76,6 +76,7 @@ public class ReviewActvity extends BaseActivity {
 
     @Override
     protected void onCreate() {
+        addBack();
         setTitleText("现场评审");
         ImageView back = findViewById(R.id.back);
         back.setVisibility(View.VISIBLE);
@@ -248,7 +249,11 @@ public class ReviewActvity extends BaseActivity {
                 }
             }else if(what ==1){//评审意见提交
                 ToastUtils.show(mContext,"评审完成");
-                ReviewActvity.this.finish();
+
+                Intent intent = getIntent();
+                setResult(10,intent);
+
+                finish();
                 System.out.println("评审结果："+response.get());
             }
         }

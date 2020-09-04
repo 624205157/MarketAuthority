@@ -147,7 +147,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/et_param"
             app:layout_constraintTop_toBottomOf="@+id/et_param"
             android:layout_marginTop="10dp"
-            tools:text="形式试验单位内容"
+            tools:text="型式试验单位内容"
             android:textColor="@color/title_text"
             android:textSize="16sp"
             android:background="@null"
@@ -157,7 +157,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="形式试验单位:"
+            android:text="型式试验单位:"
             android:textSize="16sp"
             android:textColor="@color/text_color_1"
             app:layout_constraintRight_toLeftOf="@+id/et_formal_unit"

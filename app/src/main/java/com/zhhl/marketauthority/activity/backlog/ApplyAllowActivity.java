@@ -42,7 +42,7 @@ public class ApplyAllowActivity extends BaseActivity {
     @BindView(R.id.et_param)
     EditText et_param;//参数
     @BindView(R.id.et_formal_unit)
-    EditText et_formal_unit;//形式试验单位
+    EditText et_formal_unit;//型式试验单位
     @BindView(R.id.et_product)
     EditText et_product;//单位地址
     private ImageView back;
@@ -106,7 +106,7 @@ public class ApplyAllowActivity extends BaseActivity {
 //        map.put("n_second_id",et_unit_chaild.getText());//许可子项
 //        map.put("n_third_id",et_level.getText());//许可级别
 //        map.put("v_para_id",et_param.getText());//参数
-        map.put("v_unit",et_formal_unit.getText());//形式试验单位
+        map.put("v_unit",et_formal_unit.getText());//型式试验单位
         map.put("v_production",et_product.getText());//代表作品
         request.add(map);
         request(1,request,httpListener,true,true);
@@ -134,7 +134,7 @@ public class ApplyAllowActivity extends BaseActivity {
         et_unit_chaild.setText(resBean.getN_SECOND_ID());//许可子项
         et_level.setText(resBean.getN_THIRD_ID());//许可级别
         et_param.setText(resBean.getV_PARA_ID());//参数
-        et_formal_unit.setText(resBean.getV_UNIT());//形式试验单位
+        et_formal_unit.setText(resBean.getV_UNIT());//型式试验单位
         et_product.setText(resBean.getV_PRODUCTION());//代表产品
 
     }

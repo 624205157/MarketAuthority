@@ -9,7 +9,7 @@ public class ApplyAllowBean {
 
 
     /**
-     * obj : {"res":[{"V_PRODUCTION":"代表产品（限制范围、典型产品）","UPDATETIME":{"date":6,"hours":10,"seconds":55,"month":0,"nanos":0,"timezoneOffset":-480,"year":120,"minutes":8,"time":1578276535000,"day":1},"N_L_ID":"af3a16d5d2f041859be47db8476800d8","N_LT_ID":"e12e993d19e84cdab878067d14954ce3","N_SECOND_ID":"锅炉","N_THIRD_ID":"锅炉B","V_ZT":"0","CREATETIME":{"date":2,"hours":17,"seconds":28,"month":0,"nanos":0,"timezoneOffset":-480,"year":120,"minutes":17,"time":1577956648000,"day":4},"V_PARA_ID":"额定出口压力小于等于2.5MPa的蒸汽和热水锅炉；有机热载体锅炉","N_FIRST_ID":"锅炉制造","V_UNIT":"形式试验单位"}],"N_L_ID":"af3a16d5d2f041859be47db8476800d8","xklx":"1","N_B_ID":"cd4d7253f77f418c96ff65b6c5b4b22c"}
+     * obj : {"res":[{"V_PRODUCTION":"代表产品（限制范围、典型产品）","UPDATETIME":{"date":6,"hours":10,"seconds":55,"month":0,"nanos":0,"timezoneOffset":-480,"year":120,"minutes":8,"time":1578276535000,"day":1},"N_L_ID":"af3a16d5d2f041859be47db8476800d8","N_LT_ID":"e12e993d19e84cdab878067d14954ce3","N_SECOND_ID":"锅炉","N_THIRD_ID":"锅炉B","V_ZT":"0","CREATETIME":{"date":2,"hours":17,"seconds":28,"month":0,"nanos":0,"timezoneOffset":-480,"year":120,"minutes":17,"time":1577956648000,"day":4},"V_PARA_ID":"额定出口压力小于等于2.5MPa的蒸汽和热水锅炉；有机热载体锅炉","N_FIRST_ID":"锅炉制造","V_UNIT":"型式试验单位"}],"N_L_ID":"af3a16d5d2f041859be47db8476800d8","xklx":"1","N_B_ID":"cd4d7253f77f418c96ff65b6c5b4b22c"}
      * code : 200
      * msg : 成功
      */
@@ -44,7 +44,7 @@ public class ApplyAllowBean {
 
     public static class ObjBean {
         /**
-         * res : [{"V_PRODUCTION":"代表产品（限制范围、典型产品）","UPDATETIME":{"date":6,"hours":10,"seconds":55,"month":0,"nanos":0,"timezoneOffset":-480,"year":120,"minutes":8,"time":1578276535000,"day":1},"N_L_ID":"af3a16d5d2f041859be47db8476800d8","N_LT_ID":"e12e993d19e84cdab878067d14954ce3","N_SECOND_ID":"锅炉","N_THIRD_ID":"锅炉B","V_ZT":"0","CREATETIME":{"date":2,"hours":17,"seconds":28,"month":0,"nanos":0,"timezoneOffset":-480,"year":120,"minutes":17,"time":1577956648000,"day":4},"V_PARA_ID":"额定出口压力小于等于2.5MPa的蒸汽和热水锅炉；有机热载体锅炉","N_FIRST_ID":"锅炉制造","V_UNIT":"形式试验单位"}]
+         * res : [{"V_PRODUCTION":"代表产品（限制范围、典型产品）","UPDATETIME":{"date":6,"hours":10,"seconds":55,"month":0,"nanos":0,"timezoneOffset":-480,"year":120,"minutes":8,"time":1578276535000,"day":1},"N_L_ID":"af3a16d5d2f041859be47db8476800d8","N_LT_ID":"e12e993d19e84cdab878067d14954ce3","N_SECOND_ID":"锅炉","N_THIRD_ID":"锅炉B","V_ZT":"0","CREATETIME":{"date":2,"hours":17,"seconds":28,"month":0,"nanos":0,"timezoneOffset":-480,"year":120,"minutes":17,"time":1577956648000,"day":4},"V_PARA_ID":"额定出口压力小于等于2.5MPa的蒸汽和热水锅炉；有机热载体锅炉","N_FIRST_ID":"锅炉制造","V_UNIT":"型式试验单位"}]
          * N_L_ID : af3a16d5d2f041859be47db8476800d8
          * xklx : 1
          * N_B_ID : cd4d7253f77f418c96ff65b6c5b4b22c
@@ -99,7 +99,7 @@ public class ApplyAllowBean {
              * CREATETIME : {"date":2,"hours":17,"seconds":28,"month":0,"nanos":0,"timezoneOffset":-480,"year":120,"minutes":17,"time":1577956648000,"day":4}
              * V_PARA_ID : 额定出口压力小于等于2.5MPa的蒸汽和热水锅炉；有机热载体锅炉
              * N_FIRST_ID : 锅炉制造
-             * V_UNIT : 形式试验单位
+             * V_UNIT : 型式试验单位
              */
 
             private String V_PRODUCTION;
