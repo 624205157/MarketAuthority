@@ -3,9 +3,12 @@ package com.zhhl.marketauthority;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.cjt2325.cameralibrary.listener.ErrorListener;
 import com.cjt2325.cameralibrary.listener.JCameraListener;
 import com.cjt2325.cameralibrary.util.DeviceUtil;
 import com.cjt2325.cameralibrary.util.FileUtil;
+import com.zhhl.marketauthority.util.PhotoUtils;
 
 import java.io.File;
 
@@ -28,13 +32,13 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         setContentView(R.layout.activity_camera);
         jCameraView = (JCameraView) findViewById(R.id.jcameraview);
         //设置视频保存路径
         jCameraView.setSaveVideoPath(Environment.getExternalStorageDirectory().getPath() + File.separator + "JCamera");
         jCameraView.setFeatures(JCameraView.BUTTON_STATE_BOTH);
-        jCameraView.setTip("JCameraView Tip");
+//        jCameraView.setTip("JCameraView Tip");
         jCameraView.setMediaQuality(JCameraView.MEDIA_QUALITY_MIDDLE);
         jCameraView.setErrorLisenter(new ErrorListener() {
             @Override
@@ -69,10 +73,10 @@ public class CameraActivity extends AppCompatActivity {
                 //获取视频路径
                 String path = FileUtil.saveBitmap("JCamera", firstFrame);
                 Log.i("CJT", "url = " + url + ", Bitmap = " + path);
-                System.out.println("获取到的视频还是图片路径："+url);
+                System.out.println("获取到的视频还是图片路径：" + url);
                 Intent intent = new Intent();
                 intent.putExtra("path", path);
-                intent.putExtra("video",url);
+                intent.putExtra("video", url);
                 setResult(102, intent);
                 finish();
             }
@@ -87,11 +91,49 @@ public class CameraActivity extends AppCompatActivity {
         jCameraView.setRightClickListener(new ClickListener() {
             @Override
             public void onClick() {
-                Toast.makeText(CameraActivity.this,"Right",Toast.LENGTH_SHORT).show();
+                gallery();
             }
         });
 
         Log.i("CJT", DeviceUtil.getDeviceModel());
+    }
+
+    /*
+     * 从相册获取
+     */
+    public void gallery() {
+        // 激活系统图库，选择一张图片
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*;video/*");
+        // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
+        startActivityForResult(intent, 0x100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case RESULT_OK:
+                try {
+                    Uri uri = data.getData(); // 得到Uri
+                    String path = PhotoUtils.getRealFilePath(CameraActivity.this, uri);
+                    if (path.indexOf(".jpg") != -1) {
+                        Intent intent = new Intent();
+                        intent.putExtra("path", path);
+                        setResult(101, intent);
+                        finish();
+                    }
+                    if (path.indexOf(".mp4") != -1) {
+                        Intent intent = new Intent();
+                        intent.putExtra("video", path);
+                        setResult(102, intent);
+                        finish();
+                        break;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        }
     }
 
     @Override

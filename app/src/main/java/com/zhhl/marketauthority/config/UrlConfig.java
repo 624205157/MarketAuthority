@@ -15,7 +15,7 @@ public class UrlConfig {
 //    11  申请单位资源
 //    public static final String HOST = "http://124.234.143.68:";
 //    public static final String PORT = "7036/FH_O";
-    public static final String HOST = "http://192.168.1.115:";
+    public static final String HOST = "http://192.168.1.127:";
     public static final String PORT = "8080";
     public static final String PATH_COMMON = HOST + PORT + "/authenticate/ydlist.do";
     public static final String PATH_BACKLOG = HOST + PORT + "/transaction/ydlist";
@@ -26,6 +26,7 @@ public class UrlConfig {
     //待办提交
 //    public static final String  PAHT_DB_PJ = HOST+PORT+"/authenticate/ydAudit";
     public static final String PAHT_DB_PJ = HOST + PORT + "/authenticate/audit1";
+
     //预览报告
     public static final String PAHT_REPORT = HOST + PORT + "/sqstatic/111/11.html";
     //预览报告新地址

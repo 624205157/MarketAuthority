@@ -240,7 +240,8 @@ public class ReviewActvity extends BaseActivity {
         public void onSucceed(int what, Response<String> response) {
             if (what ==0){//上传视频或图片
                 Gson gson = new Gson();
-                UploadImage uploadImage = gson.fromJson(response.get(), UploadImage.class);
+                String result = response.get();
+                UploadImage uploadImage = gson.fromJson(result, UploadImage.class);
                 if (uploadImage!=null && uploadImage.isFlag()){
                     selectList.add(myMediaType);
                     adapter.setList(selectList);

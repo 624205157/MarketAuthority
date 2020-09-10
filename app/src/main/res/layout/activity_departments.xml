@@ -198,6 +198,7 @@
             android:textColor="@color/title_text"
             android:textSize="16sp"
             android:padding="7dp"
+            android:maxLength="100"
             />
     </android.support.constraint.ConstraintLayout>
     <android.support.constraint.ConstraintLayout

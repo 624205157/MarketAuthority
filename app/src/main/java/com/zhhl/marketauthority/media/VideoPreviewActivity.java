@@ -140,6 +140,13 @@ public class VideoPreviewActivity extends BaseActivity implements
 
     @Override
     public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.picture_left_back:
+                finish();
+                break;
+        }
+
 //        int id = v.getId();
 //        if (id == R.id.picture_left_back) {
 //            onBackPressed();

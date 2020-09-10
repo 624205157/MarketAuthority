@@ -40,6 +40,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:maxLength="100"
             tools:text="认证项目" />
         <TextView
             android:layout_width="wrap_content"
@@ -67,6 +68,7 @@
             android:background="@null"
             android:padding="7dp"
             android:visibility="visible"
+            android:maxLength="100"
             />
 
 
@@ -125,6 +127,7 @@
             android:padding="7dp"
             android:inputType="number"
             android:maxLength="1"
+
             />
 
         <TextView
