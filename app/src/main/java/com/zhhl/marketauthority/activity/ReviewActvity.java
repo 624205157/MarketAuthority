@@ -56,8 +56,8 @@ public class ReviewActvity extends BaseActivity {
     TextView submit;
     @BindView(R.id.et_idea)
     EditText et_idea;
-    @BindView(R.id.rg)
-    RadioGroup rg;
+//    @BindView(R.id.rg)
+//    RadioGroup rg;
     @BindView(R.id.recycler)
     RecyclerView recycler;
     FullyGridLayoutManager manager;
@@ -98,25 +98,25 @@ public class ReviewActvity extends BaseActivity {
         adapter.setList(selectList);//设置数据
         recycler.setAdapter(adapter);
 
-        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i){
-                    case R.id.all:
-                        ps_state = "0";
-                        break;
-                    case R.id.type_1:
-                        ps_state = "1";
-                        break;
-                    case R.id.type_2:
-                        ps_state = "3";
-                        break;
-                    case R.id.type_3:
-                        ps_state = "2";
-                        break;
-                }
-            }
-        });
+//        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                switch (i){
+//                    case R.id.all:
+//                        ps_state = "0";
+//                        break;
+//                    case R.id.type_1:
+//                        ps_state = "1";
+//                        break;
+//                    case R.id.type_2:
+//                        ps_state = "3";
+//                        break;
+//                    case R.id.type_3:
+//                        ps_state = "2";
+//                        break;
+//                }
+//            }
+//        });
         adapter.setOnItemClickListener(new GridImageSecAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
@@ -143,23 +143,23 @@ public class ReviewActvity extends BaseActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!TextUtils.isEmpty(ps_state)){
+//                if (!TextUtils.isEmpty(ps_state)){
                     String psyj = et_idea.getText().toString();
                     String time = et_updatetime.getText().toString();
                     Request<String> request = NoHttp.createStringRequest(UrlConfig.PAHT_DB_PJ, RequestMethod.POST);
                     request.add("xklx","1");
                     request.add("L_TYPE","4");
                     request.add("N_L_ID",N_L_ID);
-                    request.add("audit",ps_state);
+//                    request.add("audit",ps_state);
                     request.add("PSR","评审人姓名");
                     request.add("opinion","psyj");
                     request.add("N_B_ID",N_B_ID);
                     request.add("mogonDbId",sbf.toString());
                     System.out.println("图片ID参数："+sbf.toString());
                     request(1,request,httpListener,true,true);
-                }else{
-                    ToastUtils.show(mContext,"请选择评审状态");
-                }
+//                }else{
+//                    ToastUtils.show(mContext,"请选择评审状态");
+//                }
             }
         });
     }

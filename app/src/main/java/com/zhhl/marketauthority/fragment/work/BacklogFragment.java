@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 
@@ -58,12 +59,12 @@ public class BacklogFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(mAdapter);
         swipeLayout.setRefreshing(true);
-        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                loadMore();
-            }
-        });
+//        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+//            @Override
+//            public void onLoadMoreRequested() {
+//                loadMore();
+//            }
+//        });
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -115,14 +116,14 @@ public class BacklogFragment extends BaseFragment {
     private HttpListener<String> httpListener = new HttpListener<String>() {
         @Override
         public void onSucceed(int what, Response<String> response) {
-            System.out.println("待办事项："+response.get());
+            Log.e("待办事项：" , response.get());
             BacklogFraBean produce = GsonUtil.GsonToBean(response.get(), BacklogFraBean.class);
             List<BacklogFraBean.ObjBean.VarListBean> resBeans = produce.getObj().getVarList();
 
             if (produce!=null && produce.getCode().equals("200")){
                 if (dealCount!=null){
                     dealCount.dealCount(produce.getObj().getDaiban(),produce.getObj().getYibanli());
-                    System.out.println("待办事项数据条数："+dealCount);
+                    Log.e("待办事项数据条数：",dealCount + "");
                 }
                 if (what==0){
                     setData(true,resBeans);

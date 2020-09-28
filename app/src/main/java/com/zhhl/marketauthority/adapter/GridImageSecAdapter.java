@@ -111,13 +111,13 @@ public class GridImageSecAdapter extends
         } else {
             viewHolder.mIvDel.setVisibility(View.VISIBLE);
             viewHolder.mIvDel.setOnClickListener(view -> {
-                int index = viewHolder.getAdapterPosition();
-                if (index != RecyclerView.NO_POSITION && list.size() > index) {
-                    list.remove(index);
-                    onDelete.onItemDelete(list.size());
-                    notifyItemRemoved(index);
-                    notifyItemRangeChanged(index, list.size());
-                }
+//                int index = viewHolder.getAdapterPosition();
+//                if (index != RecyclerView.NO_POSITION && list.size() > index) {
+//                    list.remove(index);
+//                    onDelete.onItemDelete(list.size());
+//                    notifyItemRemoved(index);
+//                    notifyItemRangeChanged(index, list.size());
+//                }
             });
             String id = list.get(position).getId();
             String type = list.get(position).getType();

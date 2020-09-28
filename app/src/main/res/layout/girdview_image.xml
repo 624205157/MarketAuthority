@@ -28,6 +28,6 @@
         android:paddingBottom="8dp"
         android:scaleType="centerInside"
         android:src="@mipmap/ic_delete_menu"
-        tools:visibility="visible" />
+        tools:visibility="invisible" />
 
 </RelativeLayout>
