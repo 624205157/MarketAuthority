@@ -1,15 +1,14 @@
 package com.zhhl.marketauthority.adapter;
 
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.bean.Certification;
-import com.zhhl.marketauthority.listener.EditTextChangeListener;
+import com.czy.commonlib.bean.Certification;
+import com.czy.commonlib.listener.EditTextChangeListener;
 
 import java.util.List;
 

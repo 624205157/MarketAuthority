@@ -1,25 +1,22 @@
 package com.zhhl.marketauthority.activity;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.engine.Resource;
+import com.czy.commonlib.activity.BaseActivity;
 import com.google.gson.Gson;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.activity.backloglist.SubcontractListActivity;
 import com.zhhl.marketauthority.bean.LoginResult;
-import com.zhhl.marketauthority.bean.UploadImage;
-import com.zhhl.marketauthority.config.UrlConfig;
-import com.zhhl.marketauthority.nohttp.listener.HttpListener;
-import com.zhhl.marketauthority.util.ToastUtils;
+import com.czy.commonlib.UrlConfig;
+import com.czy.commonlib.nohttp.listener.HttpListener;
+import com.czy.commonlib.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,7 +25,7 @@ import butterknife.OnClick;
  * Created by 陈泽宇 on 2019/12/11.
  * Describe:
  */
-public class LoginActivity extends BaseActivity{
+public class LoginActivity extends BaseActivity {
     @BindView(R.id.login)
     TextView login;
     @BindView(R.id.id_card)
@@ -75,7 +72,7 @@ public class LoginActivity extends BaseActivity{
                 Gson gson = new Gson();
                 LoginResult loginResult = gson.fromJson(response.get(), LoginResult.class);
                 if (loginResult.getFlag().equals("1")){
-                    startActivity(new Intent(mContext, MainActivity.class));
+                    startActivity(new Intent(mContext, TSMainActivity.class));
 //                    Intent intent = new Intent(mContext, PreviewReport.class);
 //                    startActivity(intent);
                 }else{

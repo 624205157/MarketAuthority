@@ -2,16 +2,13 @@ package com.zhhl.marketauthority.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -24,8 +21,6 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DateUtils;
 import com.luck.picture.lib.tools.StringUtils;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.listener.OnItemClickListener;
-import com.zhhl.marketauthority.listener.OnItemLongClickListener;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -18,15 +18,14 @@ import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.activity.BacklogActivity;
 import com.zhhl.marketauthority.adapter.BacklogAdapter;
 import com.zhhl.marketauthority.bean.BacklogFraBean;
-import com.zhhl.marketauthority.config.UrlConfig;
-import com.zhhl.marketauthority.fragment.BaseFragment;
-import com.zhhl.marketauthority.listener.DealCount;
-import com.zhhl.marketauthority.nohttp.NohttpClient;
-import com.zhhl.marketauthority.nohttp.listener.HttpListener;
-import com.zhhl.marketauthority.util.GsonUtil;
+import com.czy.commonlib.UrlConfig;
+import com.czy.commonlib.fragment.BaseFragment;
+import com.czy.commonlib.listener.DealCount;
+import com.czy.commonlib.nohttp.NohttpClient;
+import com.czy.commonlib.nohttp.listener.HttpListener;
+import com.czy.commonlib.util.GsonUtil;
 
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 
 

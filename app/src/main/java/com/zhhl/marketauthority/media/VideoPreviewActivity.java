@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,12 +14,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.activity.BaseActivity;
-import com.zhhl.marketauthority.config.UrlConfig;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
+import com.czy.commonlib.activity.BaseActivity;
 
 /**
  * @描述: 视频播放类

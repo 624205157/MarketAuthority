@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.bean.MyMediaType;
-import com.zhhl.marketauthority.config.UrlConfig;
+import com.czy.commonlib.UrlConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,13 +103,14 @@ public class GridImageSecAdapter extends
      */
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
+        viewHolder.mIvDel.setVisibility(View.INVISIBLE);
         //少于8张，显示继续添加的图标
         if (getItemViewType(position) == TYPE_CAMERA) {
             viewHolder.mImg.setImageResource(R.drawable.ic_add_image);
             viewHolder.mImg.setOnClickListener(v -> mOnAddPicClickListener.onAddPicClick());
-            viewHolder.mIvDel.setVisibility(View.INVISIBLE);
+
         } else {
-            viewHolder.mIvDel.setVisibility(View.VISIBLE);
+//            viewHolder.mIvDel.setVisibility(View.VISIBLE);
             viewHolder.mIvDel.setOnClickListener(view -> {
 //                int index = viewHolder.getAdapterPosition();
 //                if (index != RecyclerView.NO_POSITION && list.size() > index) {

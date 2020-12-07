@@ -28,18 +28,18 @@ import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.activity.BaseActivity;
+import com.czy.commonlib.activity.BaseActivity;
 import com.zhhl.marketauthority.adapter.GridImageSecAdapter;
 import com.zhhl.marketauthority.bean.DepartmentsBean;
-import com.zhhl.marketauthority.config.UrlConfig;
-import com.zhhl.marketauthority.nohttp.listener.HttpListener;
-import com.zhhl.marketauthority.util.DensityUtils;
-import com.zhhl.marketauthority.util.GsonUtil;
-import com.zhhl.marketauthority.util.ScreenUtils;
-import com.zhhl.marketauthority.util.ToastUtils;
-import com.zhhl.marketauthority.util.UntilsTime;
-import com.zhhl.marketauthority.view.FullyGridLayoutManager;
-import com.zhhl.marketauthority.view.GridSpacingItemNotBothDecoration;
+import com.czy.commonlib.UrlConfig;
+import com.czy.commonlib.nohttp.listener.HttpListener;
+import com.czy.commonlib.util.DensityUtils;
+import com.czy.commonlib.util.GsonUtil;
+import com.czy.commonlib.util.ScreenUtils;
+import com.czy.commonlib.util.ToastUtils;
+import com.czy.commonlib.util.UntilsTime;
+import com.czy.commonlib.view.FullyGridLayoutManager;
+import com.czy.commonlib.view.GridSpacingItemNotBothDecoration;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +47,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.OnClick;
 

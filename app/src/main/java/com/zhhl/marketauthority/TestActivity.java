@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cjt2325.cameralibrary.util.DeviceUtil;
+import com.czy.commonlib.activity.CameraActivity;
 
 import java.io.File;
 

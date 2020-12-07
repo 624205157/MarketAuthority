@@ -1,7 +1,6 @@
 package com.zhhl.marketauthority.media;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -9,8 +8,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.activity.BaseActivity;
-import com.zhhl.marketauthority.config.UrlConfig;
+import com.czy.commonlib.activity.BaseActivity;
+import com.czy.commonlib.UrlConfig;
 
 import butterknife.BindView;
 import butterknife.OnClick;

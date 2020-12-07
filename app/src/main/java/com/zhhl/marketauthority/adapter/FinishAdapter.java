@@ -28,8 +28,10 @@ public class FinishAdapter extends BaseQuickAdapter<FinishFraBean.ObjBean.VarLis
         String year = date.substring(0,4);
         String month = date.substring(5,7);
         String day = date.substring(8,10);
+        String time = date.substring(10);
         helper.setText(R.id.year_month, year + "/" + month);
         helper.setText(R.id.day,day);
+        helper.setText(R.id.time,time);
         helper.setText(R.id.title, item.getN_FIRST_ID());
         helper.setText(R.id.entity_name, "申请单位:" + item.getV_C_NAME());
         helper.setText(R.id.opinion,"评审意见:" + item.getXCPSZT());

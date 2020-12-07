@@ -1,9 +1,6 @@
 package com.zhhl.marketauthority.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -11,13 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.czy.commonlib.activity.BaseActivity;
 import com.google.gson.Gson;
 import com.yanzhenjie.nohttp.BasicBinary;
 import com.yanzhenjie.nohttp.FileBinary;
@@ -29,16 +26,15 @@ import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.adapter.GridImageSecAdapter;
 import com.zhhl.marketauthority.bean.MyMediaType;
 import com.zhhl.marketauthority.bean.UploadImage;
-import com.zhhl.marketauthority.config.UrlConfig;
+import com.czy.commonlib.UrlConfig;
 import com.zhhl.marketauthority.media.PicturePreviewActivity;
 import com.zhhl.marketauthority.media.VideoPreviewActivity;
-import com.zhhl.marketauthority.nohttp.NohttpClient;
-import com.zhhl.marketauthority.nohttp.listener.HttpListener;
-import com.zhhl.marketauthority.util.ScreenUtils;
-import com.zhhl.marketauthority.util.ToastUtils;
-import com.zhhl.marketauthority.util.UntilsTime;
-import com.zhhl.marketauthority.view.FullyGridLayoutManager;
-import com.zhhl.marketauthority.view.GridSpacingItemNotBothDecoration;
+import com.czy.commonlib.nohttp.listener.HttpListener;
+import com.czy.commonlib.util.ScreenUtils;
+import com.czy.commonlib.util.ToastUtils;
+import com.czy.commonlib.util.UntilsTime;
+import com.czy.commonlib.view.FullyGridLayoutManager;
+import com.czy.commonlib.view.GridSpacingItemNotBothDecoration;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -56,7 +52,7 @@ public class ReviewActvity extends BaseActivity {
     TextView submit;
     @BindView(R.id.et_idea)
     EditText et_idea;
-//    @BindView(R.id.rg)
+    //    @BindView(R.id.rg)
 //    RadioGroup rg;
     @BindView(R.id.recycler)
     RecyclerView recycler;
@@ -69,6 +65,7 @@ public class ReviewActvity extends BaseActivity {
     private String N_L_ID;
     private String N_B_ID;
     private StringBuffer sbf;
+
     @Override
     protected int setContentView() {
         return R.layout.activity_review;
@@ -80,7 +77,8 @@ public class ReviewActvity extends BaseActivity {
         setTitleText("现场评审");
         ImageView back = findViewById(R.id.back);
         back.setVisibility(View.VISIBLE);
-        ImageView change; change = findViewById(R.id.change);
+        ImageView change;
+        change = findViewById(R.id.change);
         change.setVisibility(View.INVISIBLE);
         init();
     }
@@ -94,7 +92,7 @@ public class ReviewActvity extends BaseActivity {
         recycler.setLayoutManager(manager);
         recycler.addItemDecoration(new GridSpacingItemNotBothDecoration(5,
                 ScreenUtils.dip2px(this, 8), true, false));
-        adapter = new GridImageSecAdapter(this, onAddPicClickListener,onDelete);
+        adapter = new GridImageSecAdapter(this, onAddPicClickListener, onDelete);
         adapter.setList(selectList);//设置数据
         recycler.setAdapter(adapter);
 
@@ -121,20 +119,20 @@ public class ReviewActvity extends BaseActivity {
             @Override
             public void onItemClick(int position, View v) {
                 MyMediaType myMediaType = selectList.get(position);
-                if (myMediaType.getType().equals("0")){
+                if (myMediaType.getType().equals("0")) {
                     Intent intent = new Intent(mContext, PicturePreviewActivity.class);
-                    intent.putExtra("position",(position+1)+"");
-                    intent.putExtra("sum",selectList.size()+"");
-                    intent.putExtra("path",selectList.get(position).getPath());
-                    intent.putExtra("id",selectList.get(position).getId());
-                    intent.putExtra("mediatype","0");
+                    intent.putExtra("position", (position + 1) + "");
+                    intent.putExtra("sum", selectList.size() + "");
+                    intent.putExtra("path", selectList.get(position).getPath());
+                    intent.putExtra("id", selectList.get(position).getId());
+                    intent.putExtra("mediatype", "0");
                     startActivity(intent);
-                }else if(myMediaType.getType().equals("1")){
+                } else if (myMediaType.getType().equals("1")) {
                     Intent intent = new Intent(mContext, VideoPreviewActivity.class);
-                    intent.putExtra("position",position);
-                    intent.putExtra("sum",selectList.size());
-                    intent.putExtra("path",selectList.get(position).getPath());
-                    intent.putExtra("id",selectList.get(position).getId());
+                    intent.putExtra("position", position);
+                    intent.putExtra("sum", selectList.size());
+                    intent.putExtra("path", selectList.get(position).getPath());
+                    intent.putExtra("id", selectList.get(position).getId());
                     startActivity(intent);
                 }
 
@@ -144,28 +142,41 @@ public class ReviewActvity extends BaseActivity {
             @Override
             public void onClick(View view) {
 //                if (!TextUtils.isEmpty(ps_state)){
-                    String psyj = et_idea.getText().toString();
-                    String time = et_updatetime.getText().toString();
-                    Request<String> request = NoHttp.createStringRequest(UrlConfig.PAHT_DB_PJ, RequestMethod.POST);
-                    request.add("xklx","1");
-                    request.add("L_TYPE","4");
-                    request.add("N_L_ID",N_L_ID);
+                String psyj = et_idea.getText().toString();
+//                String time = et_updatetime.getText().toString();
+                if (TextUtils.isEmpty(sbf)) {
+                    showToast("请上传现场图片");
+                    return;
+                }
+                if (TextUtils.isEmpty(psyj)) {
+                    showToast("请填写评审意见");
+                    return;
+                }
+//                if (TextUtils.isEmpty(time)) {
+//                    showToast("请选择评审时间");
+//                    return;
+//                }
+                Request<String> request = NoHttp.createStringRequest(UrlConfig.PAHT_DB_PJ, RequestMethod.POST);
+                request.add("xklx", "1");
+                request.add("L_TYPE", "4");
+                request.add("N_L_ID", N_L_ID);
 //                    request.add("audit",ps_state);
-                    request.add("PSR","评审人姓名");
-                    request.add("opinion","psyj");
-                    request.add("N_B_ID",N_B_ID);
-                    request.add("mogonDbId",sbf.toString());
-                    System.out.println("图片ID参数："+sbf.toString());
-                    request(1,request,httpListener,true,true);
+                request.add("PSR", "评审人姓名");
+                request.add("opinion", psyj);
+                request.add("N_B_ID", N_B_ID);
+                request.add("mogonDbId", sbf.toString());
+                System.out.println("图片ID参数：" + sbf.toString());
+                request(1, request, httpListener, true, true);
 //                }else{
 //                    ToastUtils.show(mContext,"请选择评审状态");
 //                }
             }
         });
     }
+
     @OnClick({R.id.et_updatetime})
-    public void onClickView(View view){
-        switch (view.getId()){
+    public void onClickView(View view) {
+        switch (view.getId()) {
             case R.id.et_updatetime:
                 TimePickerView pvTime = new TimePickerBuilder(mContext, new OnTimeSelectListener() {
                     @Override
@@ -197,6 +208,7 @@ public class ReviewActvity extends BaseActivity {
 
         }
     };
+
     //拍照数据添加到recyclerview并上传数据
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -208,7 +220,7 @@ public class ReviewActvity extends BaseActivity {
 //            photo.setImageBitmap(BitmapFactory.decodeFile(path));
             myMediaType.setType("0");
             myMediaType.setPath(path);
-            uploadMedia(path,"0");
+            uploadMedia(path, "0");
 
         }
         if (resultCode == 102) {
@@ -218,50 +230,52 @@ public class ReviewActvity extends BaseActivity {
 
             myMediaType.setType("1");
             myMediaType.setPath(path);
-            uploadMedia(path,"1");
+            uploadMedia(path, "1");
         }
         if (resultCode == 103) {
             Toast.makeText(this, "请检查相机权限~", Toast.LENGTH_SHORT).show();
         }
     }
+
     //上传图片，视频
-    private void uploadMedia(String path,String mediatype) {
+    private void uploadMedia(String path, String mediatype) {
         Request<String> request = NoHttp.createStringRequest(UrlConfig.PATH_UPLOAD_IMAGE, RequestMethod.POST);
         BasicBinary binary = new FileBinary(new File(path));
-        request.add("keyid",N_L_ID );//表主键ID
+        request.add("keyid", N_L_ID);//表主键ID
         request.add("mediatype", mediatype);//媒体类型  0图片 1视频
 //        request.add("type", "5");//类型-试生产制造
         request.add("tmpfile", binary);//文件流
-        request(0,request,httpListener,true,true);
+        request(0, request, httpListener, true, true);
     }
+
     //上传图片结果
     private HttpListener<String> httpListener = new HttpListener<String>() {
         @Override
         public void onSucceed(int what, Response<String> response) {
-            if (what ==0){//上传视频或图片
+            if (what == 0) {//上传视频或图片
                 Gson gson = new Gson();
                 String result = response.get();
                 UploadImage uploadImage = gson.fromJson(result, UploadImage.class);
-                if (uploadImage!=null && uploadImage.isFlag()){
+                if (uploadImage != null && uploadImage.isFlag()) {
                     selectList.add(myMediaType);
                     adapter.setList(selectList);
                     adapter.notifyDataSetChanged();
-                    sbf.append(uploadImage.getZmwjFileId()+",");
+                    sbf.append(uploadImage.getFilePath() + ",");
                 }
-            }else if(what ==1){//评审意见提交
-                ToastUtils.show(mContext,"评审完成");
+            } else if (what == 1) {//评审意见提交
+                ToastUtils.show(mContext, "评审完成");
 
                 Intent intent = getIntent();
-                setResult(10,intent);
+                setResult(10, intent);
 
                 finish();
-                System.out.println("评审结果："+response.get());
+                System.out.println("评审结果：" + response.get());
             }
         }
 
         @Override
         public void onFailed(int what, Response<String> response) {
-            ToastUtils.show(mContext,"请求失败");
+            ToastUtils.show(mContext, "请求失败");
         }
     };
 }

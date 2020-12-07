@@ -1,17 +1,13 @@
 package com.zhhl.marketauthority.adapter;
 
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.TextView;
 
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.bean.Backlog;
 import com.zhhl.marketauthority.bean.BacklogFraBean;
 
-import java.time.Year;
 import java.util.List;
 
 /**
@@ -30,8 +26,10 @@ public class BacklogAdapter extends BaseQuickAdapter<BacklogFraBean.ObjBean.VarL
         String year = date.substring(0,4);
         String month = date.substring(5,7);
         String day = date.substring(8,10);
+        String time = date.substring(10);
         helper.setText(R.id.year_month, year + "/" + month);
         helper.setText(R.id.day, day);
+        helper.setText(R.id.time,time);
         helper.setText(R.id.title, item.getN_FIRST_ID());
         helper.setText(R.id.entity_name, "申请单位:" + item.getV_C_NAME());
         if (TextUtils.equals(item.getXCPSZT(), "-1")) {

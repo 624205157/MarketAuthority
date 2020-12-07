@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CertificationsAdapter extends BaseQuickAdapter<Backlog, BaseViewHolder> {
     public CertificationsAdapter(List<Backlog> data) {
-        super(R.layout.item_backlog_work_list, data);
+        super(R.layout.jg_item_backlog_work_list, data);
     }
 
     @Override

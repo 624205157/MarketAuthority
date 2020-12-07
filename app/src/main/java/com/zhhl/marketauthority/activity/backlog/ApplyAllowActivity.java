@@ -5,24 +5,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.bigkoo.pickerview.builder.TimePickerBuilder;
-import com.bigkoo.pickerview.listener.OnTimeSelectListener;
-import com.bigkoo.pickerview.view.TimePickerView;
+
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.activity.BaseActivity;
+import com.czy.commonlib.activity.BaseActivity;
 import com.zhhl.marketauthority.bean.ApplyAllowBean;
-import com.zhhl.marketauthority.bean.ApplyCompanyBean;
-import com.zhhl.marketauthority.config.UrlConfig;
-import com.zhhl.marketauthority.nohttp.listener.HttpListener;
-import com.zhhl.marketauthority.util.GsonUtil;
-import com.zhhl.marketauthority.util.ToastUtils;
-import com.zhhl.marketauthority.util.UntilsTime;
+import com.czy.commonlib.UrlConfig;
+import com.czy.commonlib.nohttp.listener.HttpListener;
+import com.czy.commonlib.util.ToastUtils;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 

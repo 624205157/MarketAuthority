@@ -6,8 +6,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.czy.commonlib.activity.BaseActivity;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.config.UrlConfig;
+import com.czy.commonlib.UrlConfig;
 
 public class PreviewReport extends BaseActivity {
     private String N_L_ID ;

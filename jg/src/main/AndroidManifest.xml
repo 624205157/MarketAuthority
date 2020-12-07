@@ -1,0 +1,16 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.czy.jg" >
+
+
+    <application>
+
+        <activity android:name=".activity.BacklogActivity"/>
+        <activity android:name=".activity.JGMainActivity"/>
+        <activity android:name=".activity.ReviewActivity"/>
+        <activity android:name=".media.PicturePreviewActivity"/>
+        <activity android:name=".media.VideoPreviewActivity"/>
+
+
+    </application>
+
+</manifest>

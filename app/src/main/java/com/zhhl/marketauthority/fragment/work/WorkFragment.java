@@ -6,9 +6,8 @@ import android.widget.TextView;
 
 
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.fragment.BaseFragment;
-import com.zhhl.marketauthority.listener.DealCount;
-import com.zhhl.marketauthority.listener.DoneCount;
+import com.czy.commonlib.fragment.BaseFragment;
+import com.czy.commonlib.listener.DealCount;
 
 import java.util.ArrayList;
 import java.util.List;

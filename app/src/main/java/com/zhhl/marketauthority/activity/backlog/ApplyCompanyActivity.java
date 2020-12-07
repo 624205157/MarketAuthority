@@ -11,23 +11,21 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.RequestMethod;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.Response;
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.activity.BaseActivity;
+import com.czy.commonlib.activity.BaseActivity;
 import com.zhhl.marketauthority.bean.ApplyCompanyBean;
-import com.zhhl.marketauthority.config.UrlConfig;
-import com.zhhl.marketauthority.nohttp.listener.HttpListener;
-import com.zhhl.marketauthority.util.GsonUtil;
-import com.zhhl.marketauthority.util.ToastUtils;
-import com.zhhl.marketauthority.util.UntilsTime;
-import com.zhhl.marketauthority.view.dialog.RemindDialog;
+import com.czy.commonlib.UrlConfig;
+import com.czy.commonlib.nohttp.listener.HttpListener;
+import com.czy.commonlib.util.GsonUtil;
+import com.czy.commonlib.util.ToastUtils;
+import com.czy.commonlib.util.UntilsTime;
+import com.czy.commonlib.view.dialog.RemindDialog;
 
 import org.json.JSONObject;
 
@@ -88,6 +86,7 @@ public class ApplyCompanyActivity extends BaseActivity {
         addBack();
         setTitleText("申请单位基本信息");
         change = addChange();
+        change.setVisibility(View.VISIBLE);
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,7 +1,7 @@
 package com.zhhl.marketauthority.fragment.work;
 
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.fragment.GroupPopFragment;
+import com.czy.commonlib.fragment.GroupPopFragment;
 
 public class FinishRootFragment extends GroupPopFragment {
 

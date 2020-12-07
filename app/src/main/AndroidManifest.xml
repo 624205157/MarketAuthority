@@ -24,11 +24,11 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
     android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.TSMainActivity"></activity>
         <activity android:name=".TestActivity"></activity>
         <activity android:name=".activity.BacklogActivity"/>
         <activity android:name=".activity.CertificationActivity"/>
-        <activity android:name=".CameraActivity"/>
+        <activity android:name="com.czy.commonlib.activity.CameraActivity"/>
         <activity android:name=".activity.backlog.ApplyCompanyActivity"/>
         <activity android:name=".activity.backlog.ApplyUnitResouse"/>
         <activity android:name=".activity.backlog.ManageStaffActivity"/>
@@ -51,8 +51,9 @@
         <activity android:name=".media.VideoPreviewActivity"></activity>
         <activity android:name=".media.PicturePreviewActivity"></activity>
         <activity android:name=".activity.ReviewActvity"></activity>
-        <activity android:name=".activity.LoginActivity"
-            android:noHistory="true">
+<!--        <activity android:name=".activity.LoginActivity"-->
+        <activity android:name=".activity.ChoseModuleActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

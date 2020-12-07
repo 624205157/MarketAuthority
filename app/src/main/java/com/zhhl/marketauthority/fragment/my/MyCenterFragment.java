@@ -2,19 +2,15 @@ package com.zhhl.marketauthority.fragment.my;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhhl.marketauthority.R;
-import com.zhhl.marketauthority.fragment.BaseFragment;
+import com.czy.commonlib.fragment.BaseFragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by 陈泽宇 on 2019/12/4.

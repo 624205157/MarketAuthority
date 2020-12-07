@@ -6,10 +6,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.czy.commonlib.activity.BaseActivity;
 import com.zhhl.marketauthority.R;
 import com.zhhl.marketauthority.adapter.CertificationAdapter;
-import com.zhhl.marketauthority.bean.Certification;
-import com.zhhl.marketauthority.listener.EditTextChangeListener;
+import com.czy.commonlib.bean.Certification;
+import com.czy.commonlib.listener.EditTextChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;
