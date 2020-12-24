@@ -29,14 +29,32 @@
         android:text="检测机构"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ts"
+        app:layout_constraintBottom_toTopOf="@+id/pz"
         android:textSize="35sp"
         android:textColor="@color/black"
         android:background="@drawable/background_arc_2"
         android:padding="20dp"
         android:gravity="center"
         />
+
+
+    <TextView
+        android:id="@+id/pz"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="拍     照"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jg"
+        android:textSize="35sp"
+        android:textColor="@color/black"
+        android:background="@drawable/background_arc_2"
+        android:padding="20dp"
+        android:gravity="center"
+        />
+
 
 
 

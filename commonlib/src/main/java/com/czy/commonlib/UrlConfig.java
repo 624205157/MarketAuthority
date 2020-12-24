@@ -13,9 +13,9 @@ public class UrlConfig {
 //    9管理、专业、作业人员情况
 //    10各部门人员组成
 //    11  申请单位资源
-    public static final String HOST = "http://124.234.143.68:";
-    public static final String PORT = "8154/FH_O";
-//    public static final String HOST = "http://192.168.8.101:";
+//    public static final String HOST = "http://124.234.143.68:";
+    public static final String PORT = "8080/FH_O";
+    public static final String HOST = "http://192.168.1.128:";
 //    public static final String PORT = "8080/FH_O_war_exploded";
 //    public static final String HOST = "http://192.168.1.106:8152";
 //    public static final String PORT = "";

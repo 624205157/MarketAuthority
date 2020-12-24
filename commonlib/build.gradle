@@ -45,4 +45,7 @@ dependencies {
     api 'com.squareup.okhttp3:okhttp-urlconnection:3.10.0'
     api files('libs\\toollibrary.aar')
 
+    api 'me.iwf.photopicker:PhotoPicker:0.8.4@aar'  //封装的相机拍照及预览框架
+    api 'pub.devrel:easypermissions:0.2.1'  //6.0权限判断
+
 }
